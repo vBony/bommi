@@ -16,7 +16,7 @@
                 <div>
                     <div id="comp-name-area">
                         <div id="comp-name">
-                            <h1>Nome da empresa</h1>
+                            <h1>Nome da empresa TESTE</h1>
                         </div>
                         <div id="rating-area">
                             <div id="rating"><span>5.0</span>/5</div>
