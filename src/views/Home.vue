@@ -2,11 +2,9 @@
 <template>
     <div id="header-area">
         <div id="cover-area">
-            <div class="fade-cover 1"></div>
             <div id="cover" class="content-area-cover">
                 <img src="https://picsum.photos/1280/720?random=1" alt="" id="cover-img">
             </div>
-            <div class="fade-cover 2"></div>
         </div>
         <div id="company-data-area" class="content-area">
             <div id="comp-photo-area">
@@ -50,8 +48,8 @@
     </div>
 
     <div class="content-area box-content">
-        <div class="row d-flex flex-wrap-reverse">
-            <div class="col-sm-12 col-lg-8 col-md-8 services-card">
+        <div class="row d-flex flex-wrap-reverse" id="row-box-content">
+            <div class="col-sm-12 col-lg-8 col-md-8 services-card mt-4">
                 <div id="head-services-area">
                     <div class="title-card-content outcard-title">Serviços</div>
                 </div>
