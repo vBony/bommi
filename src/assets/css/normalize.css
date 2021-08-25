@@ -5,6 +5,7 @@ body, h1{
 
 *{
     font-family: 'Nunito Sans', sans-serif;
+    box-sizing: border-box !important;
 }
 
 a,a:link,a:visited,a:hover,a:focus,a:active{
@@ -14,4 +15,9 @@ a,a:link,a:visited,a:hover,a:focus,a:active{
 
 :root {
     --primary-color: #fa9f47;
-  }
+}
+
+#app{
+    width: 100% !important;
+    box-sizing: border-box;
+}

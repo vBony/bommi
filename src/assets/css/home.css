@@ -15,7 +15,6 @@
 }
 
 #cover{
-    height: 350px;
     background: black;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -24,7 +23,7 @@
 
 #cover img{
     width: 900px;
-    height: 350px;
+    height: 250px;
     object-fit: cover;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -45,6 +44,7 @@
 #company-data-area{
     margin-top: 10px;
     width: 100%;
+    padding: 0px 12px;
 }
 
 #comp-photo{
@@ -116,11 +116,6 @@
     background-color: #ff9630;
 }
 
-#menu-area-header{
-    border-top: 3px solid #DCDCDC;
-    margin-top: 30px
-}
-
 .rating-btn-header{
     border-radius: 10px;
 }
@@ -128,8 +123,10 @@
 #menu-area-header{
     display: flex;
     justify-content: space-between;
-    padding: 5px 0px 10px 0px;
+    padding: 5px 12px 10px 12px;
     align-items: center;
+    border-top: 3px solid #DCDCDC;
+    margin-top: 30px
 }
 
 #menu-h-opts-area{
@@ -301,7 +298,7 @@
     border-color: #ff9630;
 }
 
-.btn-to-schedule:{
+.btn-to-schedule{
     box-shadow: none;
     border-color: #ff9630;
 }
@@ -343,4 +340,26 @@
 {
 	background-color: #6C757D;
 	border: 2px solid #6C757D;
+}
+
+#row-box-content{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+@media (max-width: 767px){
+    .services-card{
+        margin-top: 40px !important;
+    }
+}
+
+@media (max-width: 900px){
+    #cover-img {
+        width: 100% !important;
+        object-fit: cover;
+    }
+
+    #header-area{
+        width: 100%;
+    }
 }
