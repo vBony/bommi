@@ -16,16 +16,18 @@
                         <div id="comp-name">
                             <h1>Nome da empresa</h1>
                         </div>
-                        <div id="rating-area">
-                            <div id="rating"><span>5.0</span>/5</div>
-                            <i class="fas fa-star"></i>
-                        </div>
                     </div>
                     <div id="comp-uf">
                         Brazlândia - DF
                     </div>
                 </div>
-                <div class="btn-schedule">Agendar</div>
+                <div id="btn-area-header">
+                    <div id="rating-area">
+                        <div id="rating"><span>5.0</span>/5</div>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="btn-schedule">Agendar</div>
+                </div>
             </div>
         </div>
         <div id="menu-area-header" class="content-area">
@@ -33,6 +35,17 @@
                 <div class="menu-h-opts">Sobre</div>
                 <div class="menu-h-opts">Fotos</div>
                 <div class="menu-h-opts">Avaliações</div>
+            </div>
+
+            <div class="dropdown" id="dropDownMobileOptionsNav-area">
+                <button class="menu-h-opts dropdown-toggle" type="button" id="dropDownMobileOptionsNav" data-bs-toggle="dropdown" aria-expanded="false">
+                    Mais
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropDownMobileOptionsNav">
+                    <li><a class="dropdown-item" href="#">Sobre </a> </li>
+                    <li><a class="dropdown-item" href="#">Fotos </a> </li>
+                    <li><a class="dropdown-item" href="#">Avaliações </a> </li>
+                </ul>
             </div>
 
             <div class="dropdown">
