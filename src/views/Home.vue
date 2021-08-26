@@ -2,11 +2,9 @@
 <template>
     <div id="header-area">
         <div id="cover-area">
-            <div class="fade-cover 1"></div>
             <div id="cover" class="content-area-cover">
                 <img src="https://picsum.photos/1280/720?random=1" alt="" id="cover-img">
             </div>
-            <div class="fade-cover 2"></div>
         </div>
         <div id="company-data-area" class="content-area">
             <div id="comp-photo-area">
@@ -18,16 +16,18 @@
                         <div id="comp-name">
                             <h1>Nome da empresa</h1>
                         </div>
-                        <div id="rating-area">
-                            <div id="rating"><span>5.0</span>/5</div>
-                            <i class="fas fa-star"></i>
-                        </div>
                     </div>
                     <div id="comp-uf">
                         Brazlândia - DF
                     </div>
                 </div>
-                <div class="btn-schedule">Agendar</div>
+                <div id="btn-area-header">
+                    <div id="rating-area">
+                        <div id="rating"><span>5.0</span>/5</div>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="btn-schedule">Agendar</div>
+                </div>
             </div>
         </div>
         <div id="menu-area-header" class="content-area">
@@ -35,6 +35,17 @@
                 <div class="menu-h-opts">Sobre</div>
                 <div class="menu-h-opts">Fotos</div>
                 <div class="menu-h-opts">Avaliações</div>
+            </div>
+
+            <div class="dropdown" id="dropDownMobileOptionsNav-area">
+                <button class="menu-h-opts dropdown-toggle" type="button" id="dropDownMobileOptionsNav" data-bs-toggle="dropdown" aria-expanded="false">
+                    Mais
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropDownMobileOptionsNav">
+                    <li><a class="dropdown-item" href="#">Sobre </a> </li>
+                    <li><a class="dropdown-item" href="#">Fotos </a> </li>
+                    <li><a class="dropdown-item" href="#">Avaliações </a> </li>
+                </ul>
             </div>
 
             <div class="dropdown">
@@ -50,8 +61,8 @@
     </div>
 
     <div class="content-area box-content">
-        <div class="row d-flex flex-wrap-reverse">
-            <div class="col-sm-12 col-lg-8 col-md-8 services-card">
+        <div class="row d-flex flex-wrap-reverse" id="row-box-content">
+            <div class="col-sm-12 col-lg-8 col-md-8 services-card mt-4">
                 <div id="head-services-area">
                     <div class="title-card-content outcard-title">Serviços</div>
                 </div>

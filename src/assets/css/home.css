@@ -15,7 +15,6 @@
 }
 
 #cover{
-    height: 350px;
     background: black;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -24,7 +23,7 @@
 
 #cover img{
     width: 900px;
-    height: 350px;
+    height: 250px;
     object-fit: cover;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -45,6 +44,7 @@
 #company-data-area{
     margin-top: 10px;
     width: 100%;
+    padding: 0px 12px;
 }
 
 #comp-photo{
@@ -80,19 +80,40 @@
     align-items: center;
 }
 
-#rating-area{
-    margin-left: 10px;
+#data-company-area{
     display: flex;
-    margin-top: 5px;
+    align-items: center;
+}
+
+#btn-area-header{
+    display: flex;
+    align-items: center;
+}
+
+#rating-area{
+    display: flex;
+    margin: 0px 20px;
 }
 
 #rating-area i{
     color: gold;
-    margin-top: 1px;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+#name-rating-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #comp-name{
     color: #3e3e3e !important;
+    display: flex;
+}
+
+.rating-area-mobile{
+    margin: 4px 0px 0px 08px !important;
 }
 
 #comp-name h1{
@@ -116,11 +137,6 @@
     background-color: #ff9630;
 }
 
-#menu-area-header{
-    border-top: 3px solid #DCDCDC;
-    margin-top: 30px
-}
-
 .rating-btn-header{
     border-radius: 10px;
 }
@@ -128,8 +144,10 @@
 #menu-area-header{
     display: flex;
     justify-content: space-between;
-    padding: 5px 0px 10px 0px;
+    padding: 5px 12px 10px 12px;
     align-items: center;
+    border-top: 3px solid #DCDCDC;
+    margin-top: 30px
 }
 
 #menu-h-opts-area{
@@ -184,6 +202,7 @@
 #text-ia{
     color: #a6a6a6;
     font-size: 12px;
+    text-align: justify;
 }
 
 .about-icon{
@@ -301,7 +320,7 @@
     border-color: #ff9630;
 }
 
-.btn-to-schedule:{
+.btn-to-schedule{
     box-shadow: none;
     border-color: #ff9630;
 }
@@ -327,6 +346,20 @@
     height: fit-content;
 }
 
+#dropDownMobileOptionsNav-area{
+    display: none;
+}
+
+#dropDownMobileOptionsNav{
+    border: none;
+    background-color: #F7F7F7 !important;
+    transition: 0.2s;
+}
+
+#dropDownMobileOptionsNav:hover{
+    background-color: #eeeeee !important;
+}
+
 #card-services-area::-webkit-scrollbar-track
 {
 	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
@@ -343,4 +376,68 @@
 {
 	background-color: #6C757D;
 	border: 2px solid #6C757D;
+}
+
+#row-box-content{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+@media (max-width: 460px){
+    #menu-h-opts-area{
+        display: none;
+    }
+
+    #dropDownMobileOptionsNav-area{
+        display: block;
+    }
+}
+
+@media (max-width: 767px){
+    .services-card{
+        margin-top: 40px !important;
+    }
+}
+
+@media (max-width: 900px){
+    #cover-img {
+        width: 100% !important;
+        object-fit: cover;
+    }
+
+    #header-area{
+        width: 100%;
+    }
+}
+
+@media (max-width: 655px){
+    #company-data-area{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #comp-photo-area{
+        margin-top: -100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #company-data{
+        flex-direction: column;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    #comp-name{
+        text-align: center;
+    }
+
+    #btn-area-header{
+        flex-direction: column;
+    }
+
+    .btn-schedule{
+        width: 250px !important;
+        margin-top: 20px !important;
+    }
 }
