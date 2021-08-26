@@ -184,6 +184,7 @@
 #text-ia{
     color: #a6a6a6;
     font-size: 12px;
+    text-align: justify;
 }
 
 .about-icon{
@@ -343,4 +344,74 @@
 {
 	background-color: #6C757D;
 	border: 2px solid #6C757D;
+}
+
+#row-box-content{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+@media (max-width: 460px){
+    #menu-h-opts-area{
+        display: none;
+    }
+
+    #dropDownMobileOptionsNav-area{
+        display: block;
+    }
+}
+
+@media (max-width: 767px){
+    .services-card{
+        margin-top: 40px !important;
+    }
+}
+
+@media (max-width: 900px){
+    #cover-img {
+        width: 100% !important;
+        object-fit: cover;
+    }
+
+    #header-area{
+        width: 100%;
+    }
+}
+
+@media (max-width: 655px){
+    #company-data-area{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #comp-photo-area{
+        margin-top: -100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #company-data{
+        flex-direction: column;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    #comp-name{
+        text-align: center;
+    }
+
+    #btn-area-header{
+        flex-direction: column;
+    }
+
+    .btn-schedule{
+        width: 250px !important;
+        margin-top: 20px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    #title {
+        font-size: 30px;
+    }
 }
