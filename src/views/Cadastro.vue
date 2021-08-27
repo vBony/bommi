@@ -72,6 +72,7 @@
 </style>
 <style src="@/assets/css/normalize.css">
 </style>
+
 <!-- Importação do model -->
 <script lang="ts">
   import Cadastro from "@/models/Cadastro"
