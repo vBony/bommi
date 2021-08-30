@@ -1,6 +1,4 @@
 class System {  
-    //Falta o nome completo!!!!
-    //Falta o numero!!!!!!
 
     public sys_bairro = null
     public sys_cep = ''
@@ -16,6 +14,7 @@ class System {
     public sys_uf = null
     public sys_numero = null
     public sys_nome = null
+    public sys_cnpj = ''
 
 }
 

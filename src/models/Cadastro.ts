@@ -4,6 +4,7 @@ import axios from 'axios';
 import System from '@/entities/System';
 import 'jquery-mask-plugin';
 import $ from 'jquery';
+import Clientes from '@/entities/Clientes';
 
 // Importando componentes
 @Options({
@@ -13,6 +14,7 @@ import $ from 'jquery';
 })
 
 class Cadastro extends Vue {
+    public clientes = new Clientes()
     public system = new System()
     public erro = new System()
 
@@ -29,13 +31,15 @@ class Cadastro extends Vue {
     }
     testeRequisicao(){
       console.log(this.system);
+      console.log(this.clientes);
+      
       
     }
 
     setMaskInputs(){
       $('input[name=sys_telefone]').mask('(00) 00000-0000');
       $('input[name=sys_cep]').mask('00.000-000');
-      
+      $('input[name=sys_cnpj').mask('00.000.000/0000-00');
     }
 
     string_to_slug(str:string) {
