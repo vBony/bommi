@@ -5,8 +5,13 @@
     <div id="sub-title">Preencha abaixo as informações sobre a sua futura loja na Ubarber com os dados do seu negócio.</div>
   <div class="ipt-sub-area">
     <div class="title-ipt">Nome completo</div>
-    <input placeholder="Nome do proprietário" class="ipt" type="text" name="sys_nome" v-model="system.sys_nome">
-    <div class="ipt-msg" id="sys_nome">{{erro.sys_nome}}</div>
+    <input placeholder="Nome do proprietário" class="ipt" type="text" name="cli_nome" v-model="clientes.cli_nome">
+    <div class="ipt-msg" id="sys_nome">{{erro.cli_nome}}</div>
+  </div>
+  <div class="ipt-sub-area mb-5">
+    <div class="title-ipt">E-mail</div>
+    <input placeholder="E-mail" class="ipt" type="email" name="cli_email" v-model="clientes.cli_email">
+    <div class="ipt-msg" id="cli_email">{{erro.cli_email}}</div>
   </div>
   <div id="ipt-area">
     <div class="ipt-sub-area">
@@ -18,6 +23,11 @@
       <div class="title-ipt">Nome do domínio</div> 
       <input placeholder="URL da sua loja" class="ipt" id="dominio" type="text" name="sys_dominio" v-model="system.sys_dominio">
       <div class="ipt-msg" id="sys_dominio">{{erro.sys_dominio}}</div>
+    </div>
+    <div class="ipt-sub-area">
+      <div class="title-ipt">CNPJ</div>
+      <input placeholder="CNPJ" class="ipt" type="text" name="sys_cnpj" v-model="system.sys_cnpj">
+      <div class="ipt-msg" id="sys_cnpj">{{erro.sys_cnpj}}</div>
     </div>
     <div class="ipt-sub-area">
       <div class="title-ipt">Telefone da empresa</div>
