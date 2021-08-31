@@ -71,7 +71,7 @@
       <input placeholder="Complemento do endereço" class="ipt" type="text" name="sys_complemento" v-model="system.sys_complemento">
     <div class="ipt-msg" id="sys_complemento">{{erro.system.sys_complemento}}</div>
     </div>
-    <div id="btt-area"><button id="btt" @click="testeRequisicao()">Enviar</button></div>
+    <div id="btt-area"><button id="btt" @click="enviarDados()">Enviar</button></div>
   </div>
 </div>
 </template>

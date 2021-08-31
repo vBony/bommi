@@ -1,11 +1,13 @@
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-// import axios from 'axios';
+import axios from 'axios';
 import System from '@/entities/System';
 import 'jquery-mask-plugin';
 import $ from 'jquery';
 import Clientes from '@/entities/Clientes';
 import DocumentMixin from '@/mixins/DocumentMixin'
+// import dotenv from 'dotenv'
+
 
 // Importando componentes
 @Options({
@@ -17,6 +19,8 @@ import DocumentMixin from '@/mixins/DocumentMixin'
 class Cadastro extends Vue {
     public clientes = new Clientes()
     public system = new System()
+
+    public urlServer = ''
 
     public erro = {
       system: new System(),
@@ -36,11 +40,29 @@ class Cadastro extends Vue {
     mounted(){
       this.setMaskInputs()
       this.setDomain()
+      this.documentMixin.getUrlServer()
+      console.log(this.documentMixin.getUrlServer());
+      
+
+
     }
 
-    testeRequisicao(){
-      console.log(this.system);
-      console.log(this.clientes);
+    enviarDados(){
+      const data = {
+        clientes: this.clientes,
+        system: this.system
+      }
+
+      $.ajax({
+        type: "POST",
+        url: this.documentMixin.getUrlServer()+ 'sistema/cadastrar',
+        data: {dados:data},
+        success: function(data){
+          console.log(data);
+          
+        },
+        dataType: 'json',
+      });
     }
 
     setMaskInputs(){
