@@ -64,6 +64,7 @@ class Cadastro extends Vue {
             this.erro = data.errors
           }else if (data.message == '200'){
             this.erro = this.errorReset
+            alert('Sistema cadastrado com sucesso!')
           }
         },
         dataType: 'json',
