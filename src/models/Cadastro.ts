@@ -1,11 +1,13 @@
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-// import axios from 'axios';
+import axios from 'axios';
 import System from '@/entities/System';
 import 'jquery-mask-plugin';
 import $ from 'jquery';
 import Clientes from '@/entities/Clientes';
 import DocumentMixin from '@/mixins/DocumentMixin'
+// import dotenv from 'dotenv'
+
 
 // Importando componentes
 @Options({
@@ -18,7 +20,14 @@ class Cadastro extends Vue {
     public clientes = new Clientes()
     public system = new System()
 
+    public urlServer = ''
+
     public erro = {
+      system: new System(),
+      clientes: new Clientes()
+    }
+
+    public errorReset = {
       system: new System(),
       clientes: new Clientes()
     }
@@ -36,11 +45,30 @@ class Cadastro extends Vue {
     mounted(){
       this.setMaskInputs()
       this.setDomain()
+      this.documentMixin.getUrlServer()
+      this.updateInputs()
     }
 
-    testeRequisicao(){
-      console.log(this.system);
-      console.log(this.clientes);
+    enviarDados(){
+      const data = {
+        clientes: this.clientes,
+        system: this.system
+      }
+
+      $.ajax({
+        type: "POST",
+        url: this.documentMixin.getUrlServer()+ 'sistema/cadastrar',
+        data: {dados:data},
+        success: (data) => {
+          if(data.errors){
+            this.erro = data.errors
+          }else if (data.message == '200'){
+            this.erro = this.errorReset
+            alert('Sistema cadastrado com sucesso!')
+          }
+        },
+        dataType: 'json',
+      });
     }
 
     setMaskInputs(){
@@ -51,6 +79,19 @@ class Cadastro extends Vue {
   
     setDomain(){
       this.system.sys_dominio = this.documentMixin.string_to_slug(this.system.sys_nome_empresa)
+    }
+
+    updateInputs(){
+      $('.ipt').on('change', function(){
+        const name = $(this).attr('name')
+        $(`.ipt-msg#${name}`).hide()
+        $(this).removeClass('ipt-erro')
+
+        if(name == 'sys_nome_empresa'){
+          $(`.ipt-msg#sys_dominio`).hide()
+          $('input[name=sys_dominio]').removeClass('ipt-erro')
+        }
+      })
     }
 
     consultaCep(){
