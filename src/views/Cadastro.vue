@@ -6,7 +6,7 @@
   <div class="ipt-sub-area">
     <div class="title-ipt">Nome completo</div>
     <input placeholder="Nome do proprietário" v-bind:class="{'ipt-erro': erro.clientes.cli_nome}" class="ipt" type="text" name="cli_nome" v-model="clientes.cli_nome">
-    <div class="ipt-msg" id="sys_nome" v-if="erro.clientes.cli_nome">{{erro.clientes.cli_nome}}</div>
+    <div class="ipt-msg" id="cli_nome" v-if="erro.clientes.cli_nome">{{erro.clientes.cli_nome}}</div>
   </div>
   <div class="ipt-sub-area mb-5">
     <div class="title-ipt">E-mail</div>
@@ -36,13 +36,13 @@
     </div>
     <div class="ipt-sub-area">
       <div class="title-ipt">CEP</div>
-      <input placeholder="00.000-000" id="ipt-cep" v-bind:class="{'ipt-erro': erro.system.sys_cep}" type="text" name="sys_cep" v-model="system.sys_cep" @change="consultaCep()">
+      <input placeholder="00.000-000" class="ipt" id="ipt-cep" v-bind:class="{'ipt-erro': erro.system.sys_cep}" type="text" name="sys_cep" v-model="system.sys_cep" @change="consultaCep()">
       <div class="ipt-msg" id="sys_cep" v-if="erro.system.sys_cep">{{erro.system.sys_cep}}</div>
     </div>
     <div id="city-area">
       <div class="sub-city-area">
       <div class="title-ipt">Cidade</div>
-      <input placeholder="Cidade da sua loja" id="ipt-city" type="text" disabled name="sys_cidade" v-model="system.sys_cidade">
+      <input placeholder="Cidade da sua loja" class="ipt" id="ipt-city" type="text" disabled name="sys_cidade" v-model="system.sys_cidade">
       <div class="ipt-msg" id="sys_cidade" v-if="erro.system.sys_cidade">{{erro.system.sys_cidade}}</div>
     </div>
     <div class="sub-city-area">
@@ -63,7 +63,7 @@
     </div>
     <div class="ipt-sub-area">
       <div class="title-ipt">Número</div>
-      <input placeholder="Número do endereço" v-bind:class="{'ipt-erro': erro.system.sys_numero}" id="ipt-number" type="text" name="sys_numero" v-model="system.sys_numero">
+      <input placeholder="Número do endereço" class="ipt" v-bind:class="{'ipt-erro': erro.system.sys_numero}" id="ipt-number" type="text" name="sys_numero" v-model="system.sys_numero">
     <div class="ipt-msg" id="sys_numero" v-if="erro.system.sys_numero">{{erro.system.sys_numero}}</div>
     </div>
     <div class="ipt-sub-area">
