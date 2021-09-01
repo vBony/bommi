@@ -27,7 +27,7 @@ class DocumentMixin {
       const url = window.location.hostname;
       
       if(url != 'localhost'){
-        return 'http://api.ubarber.com.br/'
+        return 'https://api.ubarber.com.br/'
       }else {
         return 'http://localhost:8012/'
       }
