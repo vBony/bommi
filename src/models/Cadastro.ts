@@ -27,6 +27,11 @@ class Cadastro extends Vue {
       clientes: new Clientes()
     }
 
+    public errorReset = {
+      system: new System(),
+      clientes: new Clientes()
+    }
+
     public documentMixin = new DocumentMixin()
 
     data() {
@@ -42,9 +47,6 @@ class Cadastro extends Vue {
       this.setDomain()
       this.documentMixin.getUrlServer()
       console.log(this.documentMixin.getUrlServer());
-      
-
-
     }
 
     enviarDados(){
@@ -57,9 +59,12 @@ class Cadastro extends Vue {
         type: "POST",
         url: this.documentMixin.getUrlServer()+ 'sistema/cadastrar',
         data: {dados:data},
-        success: function(data){
-          console.log(data);
-          
+        success: (data) => {
+          if(data.errors){
+            this.erro = data.errors
+          }else if (data.message == '200'){
+            this.erro = this.errorReset
+          }
         },
         dataType: 'json',
       });

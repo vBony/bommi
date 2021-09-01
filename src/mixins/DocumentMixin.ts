@@ -32,8 +32,6 @@ class DocumentMixin {
         return 'http://localhost:8012/'
       }
     }
-
-
 }
 
 export default DocumentMixin

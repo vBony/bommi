@@ -84,7 +84,6 @@ body {
 .ipt-msg {
     font-size: 15px;
     color: red;
-    display: none;
 }
 
 .sub-city-area {
@@ -120,7 +119,7 @@ body {
 }
 
 .ipt-erro {
-    border: 1px solid red;
+    border: 1px solid red !important;
 }
 
 .ipt-erro:focus {
