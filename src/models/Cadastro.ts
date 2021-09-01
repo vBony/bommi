@@ -46,7 +46,7 @@ class Cadastro extends Vue {
       this.setMaskInputs()
       this.setDomain()
       this.documentMixin.getUrlServer()
-      console.log(this.documentMixin.getUrlServer());
+      this.updateInputs()
     }
 
     enviarDados(){
@@ -79,6 +79,19 @@ class Cadastro extends Vue {
   
     setDomain(){
       this.system.sys_dominio = this.documentMixin.string_to_slug(this.system.sys_nome_empresa)
+    }
+
+    updateInputs(){
+      $('.ipt').on('change', function(){
+        const name = $(this).attr('name')
+        $(`.ipt-msg#${name}`).hide()
+        $(this).removeClass('ipt-erro')
+
+        if(name == 'sys_nome_empresa'){
+          $(`.ipt-msg#sys_dominio`).hide()
+          $('input[name=sys_dominio]').removeClass('ipt-erro')
+        }
+      })
     }
 
     consultaCep(){
