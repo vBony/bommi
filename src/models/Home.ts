@@ -2,6 +2,8 @@ import { Options, Vue } from 'vue-class-component';
 import $ from 'jquery'
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import { prominent } from 'color.js'
+import DocumentMixin from '@/mixins/DocumentMixin'
+import System from '@/entities/System';
 
 // Importando componentes
 @Options({
@@ -11,10 +13,15 @@ import { prominent } from 'color.js'
 })
 
 class Home extends Vue {
-    data() {
-        return {
-            data: ''
-        }
+    public documentMixin = new DocumentMixin()
+    public system = new System()
+
+    created(){
+        // this.initSystem()
+    }
+
+    beforeMount(){
+        this.initSystem()
     }
 
     mounted(){
@@ -37,6 +44,27 @@ class Home extends Vue {
     getAboutCardHeigth(){
         const height = $("#about-box").css('height')
         $('#card-services-area').css('height', `${height}`)
+    }
+
+    initSystem(){
+        const domain = this.$route.params.system
+        const resolved = this.$router.resolve(window.location.pathname)
+        
+        if(resolved.name == 'Home'){
+            $.ajax({
+                type: "POST",
+                url: this.documentMixin.getUrlServer()+ 'sistema/buscar',
+                data: {domain:domain},
+                success: (response) => {
+                    if(response.sysData != undefined){
+                        this.system = response.sysData
+                    }else{
+                        this.$router.push('/nao-encontrado')
+                    }
+                },
+                dataType: 'json',
+            });
+        }
     }
 }
 
