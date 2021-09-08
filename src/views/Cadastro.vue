@@ -74,6 +74,12 @@
     <div id="btt-area"><button id="btt" @click="enviarDados()">Enviar</button></div>
   </div>
 </div>
+<div class="loading w-100 h-100">
+  <div class="spinner-border text-white" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="text-white fs-4">Carregando...</div>
+</div>
 </template>
 
 <style src="@/assets/css/cadastro.css">
