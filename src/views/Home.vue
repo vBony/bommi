@@ -173,9 +173,13 @@
         </div>
     </div>
     
+    <div class="loading-w-logo w-100 h-100">
+        <div id="logo"><img src="../../public/imgs/logo-black.png"></div>
+    </div>
+
 </template>
 
-<style src="@/assets/css/home.css">
+<style src="@/assets/css/home.css" scoped>
 </style>
 <style src="@/assets/css/normalize.css">
 </style>
