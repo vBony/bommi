@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@types/color-thief-node": "^1.0.1",
     "axios": "^0.21.1",
     "color.js": "^1.2.0",
