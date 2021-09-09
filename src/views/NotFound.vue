@@ -2,7 +2,7 @@
     <h1>Página não encontrada</h1>
 </template>
 
-<style src="@/assets/css/cadastro.css">
+<style src="@/assets/css/not-found.css" scoped>
 </style>
 <style src="@/assets/css/normalize.css">
 </style>
