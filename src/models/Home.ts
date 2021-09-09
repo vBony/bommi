@@ -55,6 +55,12 @@ class Home extends Vue {
                 type: "POST",
                 url: this.documentMixin.getUrlServer()+ 'sistema/buscar',
                 data: {domain:domain},
+                beforeSend: function(){
+                    $(".loading-w-logo").fadeIn('fast')
+                },
+                complete:function(){
+                    $('.loading-w-logo').fadeOut('fast')
+                },
                 success: (response) => {
                     if(response.sysData != undefined){
                         this.system = response.sysData

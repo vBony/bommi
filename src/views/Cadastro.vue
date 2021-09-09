@@ -82,7 +82,7 @@
 </div>
 </template>
 
-<style src="@/assets/css/cadastro.css">
+<style src="@/assets/css/cadastro.css" scoped>
 </style>
 <style src="@/assets/css/normalize.css">
 </style>

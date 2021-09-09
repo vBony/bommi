@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
     path:'/nao-encontrado',
     name: 'NotFound',
     component: NotFound
+  },
+  {
+    path: '/',
+    name: 'Cadastro',
+    component: Cadastro
   }
 ]
 
