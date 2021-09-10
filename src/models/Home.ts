@@ -48,29 +48,26 @@ class Home extends Vue {
 
     initSystem(){
         const domain = this.$route.params.system
-        const resolved = this.$router.resolve(window.location.pathname)
-        
-        if(resolved.name == 'Home'){
-            $.ajax({
-                type: "POST",
-                url: this.documentMixin.getUrlServer()+ 'sistema/buscar',
-                data: {domain:domain},
-                beforeSend: function(){
-                    $(".loading-w-logo").fadeIn('fast')
-                },
-                complete:function(){
-                    $('.loading-w-logo').fadeOut('fast')
-                },
-                success: (response) => {
-                    if(response.sysData != undefined){
-                        this.system = response.sysData
-                    }else{
-                        this.$router.push('/nao-encontrado')
-                    }
-                },
-                dataType: 'json',
-            });
-        }
+
+        $.ajax({
+            type: "POST",
+            url: this.documentMixin.getUrlServer()+ 'sistema/buscar',
+            data: {domain:domain},
+            beforeSend: function(){
+                $(".loading-w-logo").fadeIn('fast')
+            },
+            complete:function(){
+                $('.loading-w-logo').fadeOut('fast')
+            },
+            success: (response) => {
+                if(response.sysData != undefined){
+                    this.system = response.sysData
+                }else{
+                    this.$router.push('/nao-encontrado')
+                }
+            },
+            dataType: 'json',
+        });
     }
 }
 
