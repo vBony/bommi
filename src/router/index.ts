@@ -5,9 +5,9 @@ import NotFound from '../views/NotFound.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/cadastro',
-    name: 'Cadastro',
-    component: Cadastro
+    path: '/',
+    name: 'Home',
+    component: Home
   },
   {
     path: '/:system',
@@ -15,15 +15,15 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
+    path: '/cadastro',
+    name: 'Cadastro',
+    component: Cadastro
+  },
+  {
     path:'/nao-encontrado',
     name: 'NotFound',
     component: NotFound
   },
-  {
-    path: '/',
-    name: 'Cadastro',
-    component: Cadastro
-  }
 ]
 
 const router = createRouter({
