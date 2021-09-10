@@ -69,6 +69,9 @@ class Cadastro extends Vue {
         success: (data) => {
           if(data.errors){
             this.erro = data.errors
+            if(this.erro.clientes.cli_senha){
+              this.erro.clientes.cli_repete_senha = this.erro.clientes.cli_senha
+            }
           }else if (data.message == '200'){
             this.erro = this.errorReset
             Swal.fire({
@@ -98,7 +101,10 @@ class Cadastro extends Vue {
         const name = $(this).attr('name')
         $(`.ipt-msg#${name}`).hide()
         $(this).removeClass('ipt-erro')
-
+        if(name == 'cli_senha'){
+          $(`.ipt-msg#cli_repete_senha`).hide()
+          $('input[name=cli_repete_senha]').removeClass('ipt-erro')
+        }
         if(name == 'sys_nome_empresa'){
           $(`.ipt-msg#sys_dominio`).hide()
           $('input[name=sys_dominio]').removeClass('ipt-erro')

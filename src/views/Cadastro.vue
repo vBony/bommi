@@ -8,12 +8,25 @@
     <input placeholder="Nome do proprietário" v-bind:class="{'ipt-erro': erro.clientes.cli_nome}" class="ipt" type="text" name="cli_nome" v-model="clientes.cli_nome">
     <div class="ipt-msg" id="cli_nome" v-if="erro.clientes.cli_nome">{{erro.clientes.cli_nome}}</div>
   </div>
-  <div class="ipt-sub-area mb-5">
+  <div class="ipt-sub-area mb-4">
     <div class="title-ipt">E-mail</div>
     <input placeholder="E-mail" v-bind:class="{'ipt-erro': erro.clientes.cli_email}" class="ipt" type="email" name="cli_email" v-model="clientes.cli_email">
     <div class="ipt-msg" id="cli_email" v-if="erro.clientes.cli_email">{{erro.clientes.cli_email}}</div>
   </div>
-  <div id="ipt-area">
+   <div class="ipt-sub-area">
+    <div class="title-ipt">Senha</div>
+    <input placeholder="Senha do usuário" v-bind:class="{'ipt-erro': erro.clientes.cli_senha}" class="ipt" type="password" name="cli_senha" v-model="clientes.cli_senha">
+    <div class="ipt-msg" id="cli_senha" v-if="erro.clientes.cli_senha">{{erro.clientes.cli_senha}}</div>
+  </div>
+  <div class="ipt-sub-area">
+    <div class="title-ipt">Senha novamente</div>
+    <input placeholder="Repita a senha" v-bind:class="{'ipt-erro': erro.clientes.cli_repete_senha}" class="ipt" type="password" name="cli_repete_senha" v-model="clientes.cli_repete_senha">
+    <div class="ipt-msg" id="cli_repete_senha" v-if="erro.clientes.cli_repete_senha">{{erro.clientes.cli_repete_senha}}</div>
+    <div class="mt-2">
+      <a href="" class="text-primary">Já possuo conta</a>
+    </div>
+  </div>
+  <div id="ipt-area" class="mt-3">
     <div class="ipt-sub-area">
       <div class="title-ipt">Nome da empresa</div>
       <input placeholder="Nome da sua loja" v-bind:class="{'ipt-erro': erro.system.sys_nome_empresa}" class="ipt" type="text" name="sys_nome_empresa" v-model="system.sys_nome_empresa" @keyup="setDomain()">
