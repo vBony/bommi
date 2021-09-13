@@ -14,11 +14,11 @@
                 <div>
                     <div id="comp-name-area">
                         <div id="comp-name">
-                            <h1>Nome da empresa</h1>
+                            <h1>{{system.sys_nome_empresa}}</h1>
                         </div>
                     </div>
                     <div id="comp-uf">
-                        Brazlândia - DF
+                        {{system.sys_cidade}} - {{system.sys_uf}}
                     </div>
                 </div>
                 <div id="btn-area-header">
@@ -160,7 +160,7 @@
                     </div>
                     <div class="about-child">
                         <div class="about-icon"> <i class="fas fa-phone"></i> </div>
-                        <div class="about-text"><a href="#" class="link-about">(62) 99611-4399</a></div>
+                        <div class="about-text"><a href="#" class="link-about">{{system.sys_telefone}}</a></div>
                     </div>
                     <div class="about-child" id="social-media-area">
                         <div class="sma-icons"> <i class="fab fa-facebook-square"></i></div>
@@ -173,9 +173,13 @@
         </div>
     </div>
     
+    <div class="loading-w-logo w-100 h-100">
+        <div id="logo"><img src="../../public/imgs/logo-black.png"></div>
+    </div>
+
 </template>
 
-<style src="@/assets/css/home.css">
+<style src="@/assets/css/home.css" scoped>
 </style>
 <style src="@/assets/css/normalize.css">
 </style>

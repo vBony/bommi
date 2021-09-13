@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@types/color-thief-node": "^1.0.1",
     "axios": "^0.21.1",
     "color.js": "^1.2.0",
@@ -16,6 +17,7 @@
     "dominant-color": "0.0.1",
     "jquery": "^3.6.0",
     "jquery-mask-plugin": "^1.14.16",
+    "sweetalert2": "^11.1.5",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0",

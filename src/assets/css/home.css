@@ -383,6 +383,29 @@
     margin: 0px !important;
 }
 
+.loading-w-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed !important;
+    flex-direction: column;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    background-color: white;
+    transition: 0.2s;
+}
+
+#logo{
+    animation: fadeInOut 1.5s infinite;
+}
+
+@keyframes fadeInOut {
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
+}
+
 @media (max-width: 460px){
     #menu-h-opts-area{
         display: none;
