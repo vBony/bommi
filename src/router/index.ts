@@ -2,12 +2,13 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Cadastro from '../views/Cadastro.vue'
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
+import Encontre from '../views/Encontre.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Encontre',
+    component: Encontre
   },
   {
     path: '/:system',
