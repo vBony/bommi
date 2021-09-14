@@ -16,10 +16,6 @@ class Home extends Vue {
     public documentMixin = new DocumentMixin()
     public system = new System()
 
-    created(){
-        // this.initSystem()
-    }
-
     beforeMount(){
         this.initSystem()
     }
