@@ -14,7 +14,7 @@
     </div>
 
     <div class="row mt-4" v-if="estados != null">
-        <div class="col-lg-2 col-sm-12 col-md-2">
+        <div class="col-lg-2 col-sm-12 col-md-2 mb-3">
             <div class="form-group">
                 <label for="estado">Estado</label>
                 <select class="form-control" id="estado" v-model="estado" @change="getCidades()">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="col-lg-5 col-sm-12 col-md-5" v-if="estado != null">
+        <div class="col-lg-5 col-sm-12 col-md-5 mb-3" v-if="estado != null">
             <div class="form-group">
                 <label for="estado">Cidade</label>
                 <select class="form-control" id="cidade" v-model="cidade" @change="getBairros()">
@@ -32,12 +32,40 @@
             </div>
         </div>
 
-        <div class="col-lg-5 col-sm-12 col-md-5" v-if="cidade != null">
+        <div class="col-lg-5 col-sm-12 col-md-5 mb-3" v-if="cidade != null" @change="getSistemas()">
             <div class="form-group">
                 <label for="estado">Bairro</label>
                 <select class="form-control" id="cidade" v-model="bairro">
                     <option  v-for="(bairro, index) in bairros" :key="index" :value="bairro.sys_bairro">{{bairro.sys_bairro}}</option>
                 </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4" v-if="sistemas != null && bairro != null">
+        <div class="col-12">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Barbearias disponíveis</h4>
+                <div class="lg-12 table-responsive">
+                    <table class="table align-middle" id="table-barbearias">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Endereço</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(sistema, index) in sistemas" :key="index">
+                                <td>{{sistema.sys_nome_empresa}}</td>
+                                <td>{{sistema.sys_endereco}}</td>
+                                <td class="text-end"><a :href="base_url+sistema.sys_dominio" class="btn btn-dark text-white btn-sm text-center">Acessar <i class="fas fa-external-link-alt ms-2"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             </div>
         </div>
     </div>
