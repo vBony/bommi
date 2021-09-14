@@ -20,3 +20,7 @@
     50%  { opacity:0; }
     100% { opacity:1; }
 }
+
+#table-barbearias{
+    min-width: 500px !important;
+}

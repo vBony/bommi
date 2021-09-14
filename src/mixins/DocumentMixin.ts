@@ -34,6 +34,10 @@ class DocumentMixin {
       return 'http://localhost:8012/'
     }
   }
+
+  getBaseUrl(){
+    return document.location.origin + '/'
+  }
 }
 
 export default DocumentMixin
