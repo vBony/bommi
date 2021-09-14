@@ -26,7 +26,7 @@
                         <div id="rating"><span>5.0</span>/5</div>
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="btn-schedule">Agendar</div>
+                    <div class="btn btn-dark text-white btn-schedule">Agendar</div>
                 </div>
             </div>
         </div>
@@ -49,19 +49,19 @@
             </div>
 
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle btn-sm rating-btn-header" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-thumbs-up"></i> Avaliar
+                <button class="btn btn-dark dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-thumbs-up me-1"></i> Avaliar
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-store-alt"></i> Avaliar barbearia</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-tie"></i> Avaliar funcionário</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-store-alt me-2 text-right"></i> Avaliar barbearia</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-tie me-2 text-right"></i> Avaliar funcionário</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="content-area box-content">
-        <div class="row d-flex flex-wrap-reverse" id="row-box-content">
+        <div class="row d-flex flex-wrap-reverse align-items-center" id="row-box-content">
             <div class="col-sm-12 col-lg-8 col-md-8 services-card mt-4">
                 <div id="head-services-area">
                     <div class="title-card-content outcard-title">Serviços</div>
@@ -73,17 +73,17 @@
                             <div class="card-services-title">Progressiva</div>
                             <div class="card-services-sub-title">Horarios disponíveis</div>
                             <div class="card-services-schedules-area">
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
                             </div>
                         </div>
 
                         <div class="card-services-btn-area">
                             <div class="csba-price">R$<span>50,00</span></div>
-                            <button type="button" class="btn btn-primary btn-sm btn-to-schedule">Agendar</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
                         </div>
                     </div>
 
@@ -92,17 +92,17 @@
                             <div class="card-services-title">Degradê</div>
                             <div class="card-services-sub-title">Horarios disponíveis</div>
                             <div class="card-services-schedules-area">
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
                             </div>
                         </div>
 
                         <div class="card-services-btn-area">
                             <div class="csba-price">R$<span>50,00</span></div>
-                            <button type="button" class="btn btn-primary btn-sm btn-to-schedule">Agendar</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
                         </div>
                     </div>
 
@@ -111,17 +111,17 @@
                             <div class="card-services-title">Sobrancelha</div>
                             <div class="card-services-sub-title">Horarios disponíveis</div>
                             <div class="card-services-schedules-area">
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
                             </div>
                         </div>
 
                         <div class="card-services-btn-area">
                             <div class="csba-price">R$<span>50,00</span></div>
-                            <button type="button" class="btn btn-primary btn-sm btn-to-schedule">Agendar</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
                         </div>
                     </div>
 
@@ -130,17 +130,17 @@
                             <div class="card-services-title">Barba</div>
                             <div class="card-services-sub-title">Horarios disponíveis</div>
                             <div class="card-services-schedules-area">
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm cs-schedules">08:00</button>
+                                <button type="button" class="btn btn-outline-dark rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
+                                <button type="button" class="btn btn-outline-dark rounded-pill me-1 ms-1 mt-1 btn-sm">08:00</button>
                             </div>
                         </div>
 
                         <div class="card-services-btn-area">
                             <div class="csba-price">R$<span>50,00</span></div>
-                            <button type="button" class="btn btn-primary btn-sm btn-to-schedule">Agendar</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
                         </div>
                     </div>
                 </div>
