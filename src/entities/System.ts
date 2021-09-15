@@ -15,6 +15,7 @@ class System {
     public sys_numero = null
     public sys_nome = null
     public sys_cnpj = ''
+    public sys_capa = ''
 
 }
 
