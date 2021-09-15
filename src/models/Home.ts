@@ -17,10 +17,6 @@ class Home extends Vue {
     public system = new System()
     public base_url = this.documentMixin.getUrlServer()
 
-    created(){
-        // this.initSystem()
-    }
-
     beforeMount(){
         this.initSystem()
     }
