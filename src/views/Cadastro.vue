@@ -1,29 +1,32 @@
 <template>
 <div id="cont-area">
   <div id="logo"><img src="../../public/imgs/logo-black.png"></div>
-    <div id="title">Cadastro da empresa</div>
-    <div id="sub-title">Preencha abaixo as informações sobre a sua futura loja na Ubarber com os dados do seu negócio.</div>
-  <div class="ipt-sub-area">
-    <div class="title-ipt">Nome completo</div>
-    <input placeholder="Nome do proprietário" v-bind:class="{'is-invalid': erro.clientes.cli_nome}" class="ipt form-control" type="text" name="cli_nome" v-model="clientes.cli_nome">
-    <div class="invalid-feedback color-danger" id="cli_nome">{{erro.clientes.cli_nome}}</div>
-  </div>
-  <div class="ipt-sub-area mb-4">
-    <div class="title-ipt">E-mail</div>
-    <input placeholder="E-mail" v-bind:class="{'is-invalid': erro.clientes.cli_email}" class="ipt form-control" type="email" name="cli_email" v-model="clientes.cli_email">
-    <div class="invalid-feedback" id="cli_email">{{erro.clientes.cli_email}}</div>
-  </div>
-   <div class="ipt-sub-area">
-    <div class="title-ipt">Senha</div>
-    <input placeholder="Senha do usuário" v-bind:class="{'is-invalid': erro.clientes.cli_senha}" class="ipt form-control" type="password" name="cli_senha" v-model="clientes.cli_senha">
-    <div class="invalid-feedback" id="cli_senha" >{{erro.clientes.cli_senha}}</div>
-  </div>
-  <div class="ipt-sub-area">
-    <div class="title-ipt">Senha novamente</div>
-    <input placeholder="Repita a senha" v-bind:class="{'is-invalid': erro.clientes.cli_repete_senha}" class="ipt form-control" type="password" name="cli_repete_senha" v-model="clientes.cli_repete_senha">
-    <div class="invalid-feedback" id="cli_repete_senha">{{erro.clientes.cli_repete_senha}}</div>
-    <div class="mt-2">
-      <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Já possuo conta</a>
+  <div id="title">Cadastro da empresa</div>
+  <div id="sub-title">Preencha abaixo as informações sobre a sua futura loja na Ubarber com os dados do seu negócio.</div>
+  
+  <div v-if="logado==false">
+    <div class="ipt-sub-area">
+      <div class="title-ipt">Nome completo</div>
+      <input placeholder="Nome do proprietário" v-bind:class="{'is-invalid': erro.clientes.cli_nome}" class="ipt form-control" type="text" name="cli_nome" v-model="clientes.cli_nome">
+      <div class="invalid-feedback color-danger" id="cli_nome">{{erro.clientes.cli_nome}}</div>
+    </div>
+    <div class="ipt-sub-area mb-4">
+      <div class="title-ipt">E-mail</div>
+      <input placeholder="E-mail" v-bind:class="{'is-invalid': erro.clientes.cli_email}" class="ipt form-control" type="email" name="cli_email" v-model="clientes.cli_email">
+      <div class="invalid-feedback" id="cli_email">{{erro.clientes.cli_email}}</div>
+    </div>
+    <div class="ipt-sub-area">
+      <div class="title-ipt">Senha</div>
+      <input placeholder="Senha do usuário" v-bind:class="{'is-invalid': erro.clientes.cli_senha}" class="ipt form-control" type="password" name="cli_senha" v-model="clientes.cli_senha">
+      <div class="invalid-feedback" id="cli_senha" >{{erro.clientes.cli_senha}}</div>
+    </div>
+    <div class="ipt-sub-area">
+      <div class="title-ipt">Senha novamente</div>
+      <input placeholder="Repita a senha" v-bind:class="{'is-invalid': erro.clientes.cli_repete_senha}" class="ipt form-control" type="password" name="cli_repete_senha" v-model="clientes.cli_repete_senha">
+      <div class="invalid-feedback" id="cli_repete_senha">{{erro.clientes.cli_repete_senha}}</div>
+      <div class="mt-2">
+        <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Já possuo conta</a>
+      </div>
     </div>
   </div>
   <div id="ipt-area" class="mt-3">
@@ -101,21 +104,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div id="logo"><img  src="../../public/imgs/logo-black.png" alt="50px"></div>
-        <div class="ipt-sub-area mb-4">
-          <div class="title-ipt">E-mail</div>
-          <input placeholder="E-mail"  class="ipt form-control-lg" type="email" name="cli_email">
-          <div class="invalid-feedback color-danger" id="cli_email" ></div>
+        <div class="text-center" v-if="logando==true">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
-        <div class="ipt-sub-area mb-4">
-          <div class="title-ipt">Senha</div>
-          <input placeholder="Senha"  class="ipt form-control-lg" type="password" name="cli_senha">
-          <div class="invalid-feedback color-danger" id="cli_senha" ></div>
+        <div v-if="logando==false">
+          <div id="logo"><img  src="../../public/imgs/logo-black.png" alt="50px"></div>
+          <div class="ipt-sub-area mb-4">
+            <div class="title-ipt">E-mail</div>
+            <input v-bind:class="{'is-invalid': login_data_error.cli_email}" v-model="login_data.cli_email" placeholder="E-mail"  class="ipt form-control-lg" type="email" name="cli_email">
+            <div class="invalid-feedback color-danger" id="cli_email" >{{login_data_error.cli_email}}</div>
+          </div>
+          <div class="ipt-sub-area mb-4">
+            <div class="title-ipt">Senha</div>
+            <input v-bind:class="{'is-invalid': login_data_error.cli_senha}" v-model="login_data.cli_senha" placeholder="Senha"  class="ipt form-control-lg" type="password" name="cli_senha">
+            <div class="invalid-feedback color-danger" id="cli_senha" >{{login_data_error.cli_senha}}</div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-dark">Entrar</button>
+        <button type="button" class="btn btn-dark" @click="login()">Entrar</button>
       </div>
     </div>
   </div>

@@ -38,6 +38,19 @@ class DocumentMixin {
   getBaseUrl(){
     return document.location.origin + '/'
   }
+
+  showLoading(type=null){
+    if(type == null){
+      $('.loading').fadeIn('fast')
+    }
+  }
+
+  hideLoading(type=null){
+    if(type == null){
+      $('.loading').fadeOut('fast')
+    }
+  }
+
 }
 
 export default DocumentMixin
