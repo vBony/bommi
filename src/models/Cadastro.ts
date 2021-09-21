@@ -28,8 +28,9 @@ class Cadastro extends Vue {
       cli_email: null,
       cli_senha: null
     }
-
+    
     public logado = false
+    public logado_data = {}
 
     public logando = false
 
@@ -63,6 +64,7 @@ class Cadastro extends Vue {
       this.documentMixin.getUrlServer()
       this.updateInputs()
       $('.loading').hide()
+      localStorage.removeItem('access_token')
     }
 
     enviarDados(){
@@ -74,7 +76,7 @@ class Cadastro extends Vue {
       $.ajax({
         type: "POST",
         url: this.documentMixin.getUrlServer()+ 'sistema/cadastrar',
-        data: {dados:data},
+        data: {dados:data, access_token: this.access_token},
         beforeSend: function(){
           $(".loading").fadeIn('fast')
         },
@@ -84,7 +86,7 @@ class Cadastro extends Vue {
         success: (data) => {
           if(data.errors){
             this.erro = data.errors
-            if(this.erro.clientes.cli_senha){
+            if(this.erro.clientes.cli_senha != undefined){
               this.erro.clientes.cli_repete_senha = this.erro.clientes.cli_senha
             }
           }else if (data.message == '200'){
@@ -112,9 +114,10 @@ class Cadastro extends Vue {
     }
 
     login(){
+
       $.ajax({
         type: "POST",
-        url: this.documentMixin.getUrlServer()+'user/login',
+        url: this.documentMixin.getUrlServer()+'user/login-cadastro',
         data: {data: this.login_data},
         beforeSend: () => {
           this.logando = true
@@ -131,7 +134,9 @@ class Cadastro extends Vue {
                 this.access_token = store.getters.getAccessToken
                 console.log('accessToken vindo do login: ', this.access_token);
                 this.logado = true
-                $('#exampleModal').modal('toggle')
+                $('#fecharModalLogin').trigger('click')
+
+                this.logado_data = response.user_data
             }
         },
         dataType: 'json',
