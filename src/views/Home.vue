@@ -3,12 +3,12 @@
     <div id="header-area">
         <div id="cover-area">
             <div id="cover" class="content-area-cover">
-                <img src="https://picsum.photos/1280/720?random=1" alt="" id="cover-img">
+                <img :src="base_url+system.sys_capa" alt="" id="cover-img">
             </div>
         </div>
         <div id="company-data-area" class="content-area">
             <div id="comp-photo-area">
-                <img src="https://picsum.photos/500/300?random=2&grayscale" id="comp-photo">
+                <img :src="base_url+system.sys_logo" id="comp-photo">
             </div>
             <div id="company-data">
                 <div>

@@ -1,11 +1,13 @@
+import $ from 'jquery';
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import System from '@/entities/System';
 import 'jquery-mask-plugin';
-import $ from 'jquery';
 import Clientes from '@/entities/Clientes';
 import DocumentMixin from '@/mixins/DocumentMixin'
 import Swal from 'sweetalert2'
+import store from '@/store'
+import * as bootstrap from "bootstrap";
 // import dotenv from 'dotenv'
 
 
@@ -21,6 +23,20 @@ class Cadastro extends Vue {
     public system = new System()
 
     public urlServer = ''
+
+    public login_data = {
+      cli_email: null,
+      cli_senha: null
+    }
+    
+    public logado = false
+    public logado_data = {}
+
+    public logando = false
+
+    public access_token = ''
+
+    public login_data_error = {}
 
     public erro = {
       system: new System(),
@@ -48,6 +64,7 @@ class Cadastro extends Vue {
       this.documentMixin.getUrlServer()
       this.updateInputs()
       $('.loading').hide()
+      localStorage.removeItem('access_token')
     }
 
     enviarDados(){
@@ -59,7 +76,7 @@ class Cadastro extends Vue {
       $.ajax({
         type: "POST",
         url: this.documentMixin.getUrlServer()+ 'sistema/cadastrar',
-        data: {dados:data},
+        data: {dados:data, access_token: this.access_token},
         beforeSend: function(){
           $(".loading").fadeIn('fast')
         },
@@ -69,7 +86,7 @@ class Cadastro extends Vue {
         success: (data) => {
           if(data.errors){
             this.erro = data.errors
-            if(this.erro.clientes.cli_senha){
+            if(this.erro.clientes.cli_senha != undefined){
               this.erro.clientes.cli_repete_senha = this.erro.clientes.cli_senha
             }
           }else if (data.message == '200'){
@@ -94,6 +111,36 @@ class Cadastro extends Vue {
   
     setDomain(){
       this.system.sys_dominio = this.documentMixin.string_to_slug(this.system.sys_nome_empresa)
+    }
+
+    login(){
+
+      $.ajax({
+        type: "POST",
+        url: this.documentMixin.getUrlServer()+'user/login-cadastro',
+        data: {data: this.login_data},
+        beforeSend: () => {
+          this.logando = true
+        },
+        complete: () => {
+          this.logando = false
+        },
+        success: (response) => {
+            if(response.error){
+                this.login_data_error = response.error   
+            }else{
+                this.login_data_error = {}
+                store.dispatch('setAccessToken', response.access_token)
+                this.access_token = store.getters.getAccessToken
+                console.log('accessToken vindo do login: ', this.access_token);
+                this.logado = true
+                $('#fecharModalLogin').trigger('click')
+
+                this.logado_data = response.user_data
+            }
+        },
+        dataType: 'json',
+      });
     }
 
     updateInputs(){
