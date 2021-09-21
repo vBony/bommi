@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+    "@types/bootstrap": "^5.1.6",
     "@types/color-thief-node": "^1.0.1",
     "axios": "^0.21.1",
+    "bootstrap": "^5.1.1",
     "color.js": "^1.2.0",
     "colorthief": "^2.3.2",
     "core-js": "^3.6.5",
