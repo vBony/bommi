@@ -5,7 +5,6 @@ body, h1{
 
 *{
     font-family: 'Nunito Sans', sans-serif;
-    box-sizing: border-box !important;
 }
 
 a,a:link,a:visited,a:hover,a:focus,a:active{

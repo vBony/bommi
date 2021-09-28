@@ -48,6 +48,7 @@
 }
 
 #comp-photo{
+    background-color: #F7F7F7;
     width: 145px;
     height: 145px;
     object-fit: cover;
@@ -125,20 +126,12 @@
 }
 
 .btn-schedule{
-    background-color: var(--primary-color);
+    /* background-color: var(--primary-color); */
     color: white;
     padding: 5px 15px;
     cursor: pointer;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     transition: 0.2s;
-}
-
-.btn-schedule:hover{
-    background-color: #ff9630;
-}
-
-.rating-btn-header{
-    border-radius: 10px;
 }
 
 #menu-area-header{
@@ -202,6 +195,7 @@
 #text-ia{
     color: #a6a6a6;
     font-size: 12px;
+    text-align: justify;
 }
 
 .about-icon{
@@ -291,39 +285,6 @@
     margin-top: 5px;
 }
 
-.cs-schedules{
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-right: 5px;
-}
-
-.cs-schedules:hover{
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-to-schedule{
-    border-radius: 10px;
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-to-schedule:hover{
-    background-color: #ff9630 !important;
-    border-color: #ff9630;
-}
-.btn-to-schedule:focus{
-    box-shadow: none;
-    border-color: #ff9630;
-}
-
-.btn-to-schedule{
-    box-shadow: none;
-    border-color: #ff9630;
-}
-
 .card-services-btn-area{
     display: flex;
     flex-direction: column;
@@ -377,9 +338,27 @@
 	border: 2px solid #6C757D;
 }
 
-#row-box-content{
-    padding: 0px !important;
-    margin: 0px !important;
+.loading-w-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed !important;
+    flex-direction: column;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    background-color: white;
+    transition: 0.2s;
+}
+
+#logo{
+    animation: fadeInOut 1.5s infinite;
+}
+
+@keyframes fadeInOut {
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
 }
 
 @media (max-width: 460px){
@@ -402,6 +381,10 @@
     #cover-img {
         width: 100% !important;
         object-fit: cover;
+    }
+
+    #cover{
+        width: 100%;
     }
 
     #header-area{
