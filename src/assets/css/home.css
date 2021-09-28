@@ -48,6 +48,7 @@
 }
 
 #comp-photo{
+    background-color: #F7F7F7;
     width: 145px;
     height: 145px;
     object-fit: cover;
@@ -131,10 +132,6 @@
     cursor: pointer;
     /* border-radius: 10px; */
     transition: 0.2s;
-}
-
-.btn-schedule:hover{
-    background-color: #ff9630;
 }
 
 #menu-area-header{
@@ -341,11 +338,6 @@
 	border: 2px solid #6C757D;
 }
 
-#row-box-content{
-    padding: 0px !important;
-    margin: 0px !important;
-}
-
 .loading-w-logo{
     display: flex;
     align-items: center;
@@ -389,6 +381,10 @@
     #cover-img {
         width: 100% !important;
         object-fit: cover;
+    }
+
+    #cover{
+        width: 100%;
     }
 
     #header-area{
