@@ -61,7 +61,7 @@
     </div>
 
     <div class="content-area box-content">
-        <div class="row d-flex flex-wrap-reverse align-items-center" id="row-box-content">
+        <div class="row d-flex flex-wrap-reverse align-items-center mx-auto">
             <div class="col-sm-12 col-lg-8 col-md-8 services-card mt-4">
                 <div id="head-services-area">
                     <div class="title-card-content outcard-title">Serviços</div>
