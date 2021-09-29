@@ -15,7 +15,7 @@ import System from '@/entities/System';
 class Home extends Vue {
     public documentMixin = new DocumentMixin()
     public system = new System()
-    public base_url = this.documentMixin.getUrlServer()
+    public url_server = this.documentMixin.getUrlServer()
 
     beforeMount(){
         this.initSystem()
