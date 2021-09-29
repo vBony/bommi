@@ -1,3 +1,60 @@
+
+
+#pubs-title-mobile{
+    display: none;
+}
+
+.btn-hrs{
+    font-size: 12px !important;
+}
+
+#img-publicacao img{
+    height: 50px;
+    border: 2px solid rgba(0,0,0,.125);
+    border-radius: 100%;
+}
+
+.logo-posts img{
+    height: 45px !important;
+    border: 2px solid rgba(0,0,0,.125);
+    border-radius: 100%;
+}
+
+#lista-servicos{
+    overflow-y: auto;
+    max-height: 500px !important;
+}
+
+.option-post{
+    cursor: pointer;
+}
+
+.descricao-post{
+    font-size: 14px;
+}
+
+.foto-post{
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hora-post{
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+.btn-compartilhar-post{
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.post-like{
+    cursor: pointer;
+}
+
+/* css da aplicação */
+
 .content-area-cover{
     max-width: 900px;
     margin: auto;
@@ -27,6 +84,8 @@
     object-fit: cover;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    transition: 0.2s;
+    cursor: pointer;
 }
 
 #header-area{
@@ -48,12 +107,13 @@
 }
 
 #comp-photo{
-    background-color: #F7F7F7;
     width: 145px;
     height: 145px;
     object-fit: cover;
     border-radius: 145px;
     border: 5px solid #F7F7F7;
+    background-color: #F7F7F7;
+    z-index: 2;
 }
 
 #company-data-area{
@@ -64,6 +124,11 @@
     margin-top: -50px;
     width: 145px;
     height: 145px;
+    z-index: 1;
+}
+
+#comp-photo-area img{
+    cursor: pointer;
 }
 
 #company-data{
@@ -162,7 +227,6 @@
 
 .card-content{
     background-color: white;
-    border-radius: 10px;
 }
 
 #about-box{
@@ -297,11 +361,6 @@
     color: #a6a6a6;
 }
 
-#card-services-area{
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
 .about-card{
     height: fit-content;
 }
@@ -336,6 +395,11 @@
 {
 	background-color: #6C757D;
 	border: 2px solid #6C757D;
+}
+
+#row-box-content{
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 .loading-w-logo{
@@ -375,6 +439,15 @@
     .services-card{
         margin-top: 40px !important;
     }
+
+    #lista-servicos{
+        max-height: 240px !important;
+    }
+
+    #pubs-title-mobile{
+        display: block;
+    }
+
 }
 
 @media (max-width: 900px){
