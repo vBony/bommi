@@ -7,26 +7,26 @@
 	<div v-if="logado==false">
 		<div class="ipt-sub-area">
 		<div class="title-ipt">Nome completo</div>
-			<input placeholder="Nome do proprietário" v-bind:class="{'is-invalid': erro.clientes.cli_nome}" class="ipt form-control" type="text" name="cli_nome" v-model="clientes.cli_nome">
-			<div class="invalid-feedback color-danger" id="cli_nome">{{erro.clientes.cli_nome}}</div>
+			<input placeholder="Nome do proprietário" v-bind:class="{'is-invalid': erro.funcionarios.fun_nome}" class="ipt form-control" type="text" name="fun_nome" v-model="funcionarios.fun_nome">
+			<div class="invalid-feedback color-danger" id="fun_nome">{{erro.funcionarios.fun_nome}}</div>
 		</div>
 
 		<div class="ipt-sub-area mb-4">
 			<div class="title-ipt">E-mail</div>
-			<input placeholder="E-mail" v-bind:class="{'is-invalid': erro.clientes.cli_email}" class="ipt form-control" type="email" name="cli_email" v-model="clientes.cli_email">
-			<div class="invalid-feedback" id="cli_email">{{erro.clientes.cli_email}}</div>
+			<input placeholder="E-mail" v-bind:class="{'is-invalid': erro.funcionarios.fun_email}" class="ipt form-control" type="email" name="fun_email" v-model="funcionarios.fun_email">
+			<div class="invalid-feedback" id="fun_email">{{erro.funcionarios.fun_email}}</div>
 		</div>
 
 		<div class="ipt-sub-area">
 			<div class="title-ipt">Senha</div>
-			<input placeholder="Senha do usuário" v-bind:class="{'is-invalid': erro.clientes.cli_senha}" class="ipt form-control" type="password" name="cli_senha" v-model="clientes.cli_senha">
-			<div class="invalid-feedback" id="cli_senha" >{{erro.clientes.cli_senha}}</div>
+			<input placeholder="Senha do usuário" v-bind:class="{'is-invalid': erro.funcionarios.fun_senha}" class="ipt form-control" type="password" name="fun_senha" v-model="funcionarios.fun_senha">
+			<div class="invalid-feedback" id="fun_senha" >{{erro.funcionarios.fun_senha}}</div>
 		</div>
 
 		<div class="ipt-sub-area">
 			<div class="title-ipt">Senha novamente</div>
-			<input placeholder="Repita a senha" v-bind:class="{'is-invalid': erro.clientes.cli_repete_senha}" class="ipt form-control" type="password" name="cli_repete_senha" v-model="clientes.cli_repete_senha">
-			<div class="invalid-feedback" id="cli_repete_senha">{{erro.clientes.cli_repete_senha}}</div>
+			<input placeholder="Repita a senha" v-bind:class="{'is-invalid': erro.funcionarios.fun_repete_senha}" class="ipt form-control" type="password" name="fun_repete_senha" v-model="funcionarios.fun_repete_senha">
+			<div class="invalid-feedback" id="fun_repete_senha">{{erro.funcionarios.fun_repete_senha}}</div>
 
 			<div class="mt-2">
 				<a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Já possuo conta</a>
@@ -36,7 +36,7 @@
 
 	<div class="alert alert-success d-flex align-items-center" role="alert" v-if="logado == true">
 		<i class="fas fa-check-circle me-2" width="24" height="24"></i>
-		<div>	Logado como: <b>{{logado_data.cli_nome}}</b>	</div>
+		<div>	Logado como: <b>{{logado_data.fun_nome}}</b>	</div>
 	</div>
 
 	<div id="ipt-area" class="mt-3">
@@ -139,13 +139,13 @@
 					<div id="logo"><img  src="../../public/imgs/logo-black.png" alt="50px"></div>
 					<div class="ipt-sub-area mb-4">
 						<div class="title-ipt">E-mail</div>
-						<input v-bind:class="{'is-invalid': login_data_error.cli_email}" v-model="login_data.cli_email" placeholder="E-mail"  class="ipt form-control-lg" type="email" name="cli_email">
-						<div class="invalid-feedback color-danger" id="cli_email" >{{login_data_error.cli_email}}</div>
+						<input v-bind:class="{'is-invalid': login_data_error.fun_email}" v-model="login_data.fun_email" placeholder="E-mail"  class="ipt form-control-lg" type="email" name="fun_email">
+						<div class="invalid-feedback color-danger" id="fun_email" >{{login_data_error.fun_email}}</div>
 					</div>
 					<div class="ipt-sub-area mb-4">
 						<div class="title-ipt">Senha</div>
-						<input v-bind:class="{'is-invalid': login_data_error.cli_senha}" v-model="login_data.cli_senha" placeholder="Senha"  class="ipt form-control-lg" type="password" name="cli_senha">
-						<div class="invalid-feedback color-danger" id="cli_senha" >{{login_data_error.cli_senha}}</div>
+						<input v-bind:class="{'is-invalid': login_data_error.fun_senha}" v-model="login_data.fun_senha" placeholder="Senha"  class="ipt form-control-lg" type="password" name="fun_senha">
+						<div class="invalid-feedback color-danger" id="fun_senha" >{{login_data_error.fun_senha}}</div>
 					</div>
 				</div>
 			</div>
