@@ -16,6 +16,7 @@
 
 .logo-posts img{
     height: 45px !important;
+    width: 45px !important;
     border: 2px solid rgba(0,0,0,.125);
     border-radius: 100%;
 }
