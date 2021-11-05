@@ -3,7 +3,7 @@ import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import System from '@/entities/System';
 import 'jquery-mask-plugin';
-import Clientes from '@/entities/Clientes';
+import Funcionarios from '@/entities/Funcionarios';
 import DocumentMixin from '@/mixins/DocumentMixin'
 import Swal from 'sweetalert2'
 import store from '@/store'
@@ -19,14 +19,14 @@ import * as bootstrap from "bootstrap";
 })
 
 class Cadastro extends Vue {
-    public clientes = new Clientes()
+    public funcionarios = new Funcionarios()
     public system = new System()
 
     public urlServer = ''
 
     public login_data = {
-      cli_email: null,
-      cli_senha: null
+      fun_email: null,
+      fun_senha: null
     }
     
     public logado = false
@@ -40,12 +40,12 @@ class Cadastro extends Vue {
 
     public erro = {
       system: new System(),
-      clientes: new Clientes()
+      funcionarios: new Funcionarios()
     }
 
     public errorReset = {
       system: new System(),
-      clientes: new Clientes()
+      funcionarios: new Funcionarios()
     }
 
     public documentMixin = new DocumentMixin()
@@ -69,7 +69,7 @@ class Cadastro extends Vue {
 
     enviarDados(){
       const data = {
-        clientes: this.clientes,
+        funcionarios: this.funcionarios,
         system: this.system
       }
 
@@ -86,8 +86,8 @@ class Cadastro extends Vue {
         success: (data) => {
           if(data.errors){
             this.erro = data.errors
-            if(this.erro.clientes.cli_senha != undefined){
-              this.erro.clientes.cli_repete_senha = this.erro.clientes.cli_senha
+            if(this.erro.funcionarios.fun_senha != undefined){
+              this.erro.funcionarios.fun_repete_senha = this.erro.funcionarios.fun_senha
             }
           }else if (data.message == '200'){
             this.erro = this.errorReset
@@ -148,9 +148,9 @@ class Cadastro extends Vue {
         const name = $(this).attr('name')
         $(`.ipt-msg#${name}`).hide()
         $(this).removeClass('ipt-erro')
-        if(name == 'cli_senha'){
-          $(`.ipt-msg#cli_repete_senha`).hide()
-          $('input[name=cli_repete_senha]').removeClass('ipt-erro')
+        if(name == 'fun_senha'){
+          $(`.ipt-msg#fun_repete_senha`).hide()
+          $('input[name=fun_repete_senha]').removeClass('ipt-erro')
         }
         if(name == 'sys_nome_empresa'){
           $(`.ipt-msg#sys_dominio`).hide()
