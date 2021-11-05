@@ -101,9 +101,9 @@
                     </div>
 
                     <div id="lista-servicos">
-                        <div class="card-services card">
+                        <div class="card-services card" v-for="(servico, index) in servicos" :key="index">
                             <div class="card-services-info-area">
-                                <div class="card-services-title">Progressiva</div>
+                                <div class="card-services-title">{{servico.svs_nome}}</div>
                                 <div class="card-services-sub-title">Horarios disponíveis</div>
                                 <div class="card-services-schedules-area">
                                     <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
@@ -114,61 +114,7 @@
                             </div>
 
                             <div class="card-services-btn-area">
-                                <div class="csba-price">R$<span>50,00</span></div>
-                                <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
-                            </div>
-                        </div>
-
-                        <div class="card-services card">
-                            <div class="card-services-info-area">
-                                <div class="card-services-title">Degradê</div>
-                                <div class="card-services-sub-title">Horarios disponíveis</div>
-                                <div class="card-services-schedules-area">
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                </div>
-                            </div>
-
-                            <div class="card-services-btn-area">
-                                <div class="csba-price">R$<span>50,00</span></div>
-                                <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
-                            </div>
-                        </div>
-
-                        <div class="card-services card">
-                            <div class="card-services-info-area">
-                                <div class="card-services-title">Sobrancelha</div>
-                                <div class="card-services-sub-title">Horarios disponíveis</div>
-                                <div class="card-services-schedules-area">
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                </div>
-                            </div>
-
-                            <div class="card-services-btn-area">
-                                <div class="csba-price">R$<span>50,00</span></div>
-                                <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
-                            </div>
-                        </div>
-
-                        <div class="card-services card">
-                            <div class="card-services-info-area">
-                                <div class="card-services-title">Barba</div>
-                                <div class="card-services-sub-title">Horarios disponíveis</div>
-                                <div class="card-services-schedules-area">
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill me-1 ms-1 mt-1 btn-hrs">08:00</button>
-                                </div>
-                            </div>
-
-                            <div class="card-services-btn-area">
-                                <div class="csba-price">R$<span>50,00</span></div>
+                                <div class="csba-price">R$<span>{{servico.svs_preco}}</span></div>
                                 <button type="button" class="btn btn-primary btn-sm btn-dark text-white">Agendar</button>
                             </div>
                         </div>

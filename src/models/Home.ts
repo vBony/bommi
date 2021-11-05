@@ -16,6 +16,7 @@ class Home extends Vue {
     public documentMixin = new DocumentMixin()
     public system = new System()
     public url_server = this.documentMixin.getUrlServer()
+    public servicos = {}
 
     beforeMount(){
         this.initSystem()
@@ -57,10 +58,11 @@ class Home extends Vue {
                 $('.loading-w-logo').fadeOut('fast')
             },
             success: (response) => {
-                if(response.sysData != undefined){
-                    this.system = response.sysData
+                if(response.system != undefined){
+                    this.system = response.system.data
+                    this.servicos = response.system.servicos
                 }else{
-                    this.$router.push('/nao-encontrado')
+                    // this.$router.push('/nao-encontrado')
                 }
             },
             dataType: 'json',
