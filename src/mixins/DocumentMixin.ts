@@ -29,7 +29,7 @@ class DocumentMixin {
     const url = window.location.hostname;
     
     if(url != 'localhost'){
-      return 'https://ubarber-server.vbony.xyz'
+      return 'https://ubarber-server.vbony.xyz/'
     }else {
       return 'http://localhost:8012/'
     }
