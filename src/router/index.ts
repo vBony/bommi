@@ -39,7 +39,7 @@ const routes = [
             const nome = to.params.nomeEstabelecimento as string
 
             try {
-                await http.get(`/place/exist-by-slug/${nome}`)
+                await http.get(`api/place/exist-by-slug/${nome}`)
                 next()
             } catch (err) {
                 next({ name: 'not-found' })
@@ -51,10 +51,10 @@ const routes = [
         name: 'not-found',
         component: () => import('@/views/NotFound.vue')
     },
-    {
-        path: '/:catchAll(.*)', // pega qualquer rota não encontrada
-        redirect: '/404'
-    }
+    // {
+    //     path: '/:catchAll(.*)', // pega qualquer rota não encontrada
+    //     redirect: '/404'
+    // }
 ]
 
 const router = createRouter({
