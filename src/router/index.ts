@@ -51,10 +51,10 @@ const routes = [
         name: 'not-found',
         component: () => import('@/views/NotFound.vue')
     },
-    // {
-    //     path: '/:catchAll(.*)', // pega qualquer rota não encontrada
-    //     redirect: '/404'
-    // }
+    {
+        path: '/:catchAll(.*)', // pega qualquer rota não encontrada
+        redirect: '/404'
+    }
 ]
 
 const router = createRouter({
