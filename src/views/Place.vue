@@ -170,29 +170,47 @@
 
   
 <script lang='ts'>
+// @ts-nocheck
 import { defineComponent } from 'vue';
 import HelloWorld from '@/components/HelloWorld.vue'
 import req from '@/helpers/http'
 
 const App = defineComponent({
-  components: {
+components: {
     HelloWorld
-  },
+},
 
-  data() {
+data() {
     return {
         serviceDialog: false,
-        tab: "1"
+        tab: "1",
+
+        slugName: null,
+        place: {}
     };
-  },
-  methods: {
+},
+methods: {
     openServiceDialog() {
         this.serviceDialog = true
-    }
-  },
+    },
 
-  mounted(){
-  }
+    init(){
+        req.get(`api/place/slug/${this.slugName}`)
+        .then((res) => {
+            this.place = res.data
+
+            console.log(this.place)
+        })
+        .catch((err) => {})
+
+    }
+},
+
+created() {
+    this.slugName = this.$route.params.nomeEstabelecimento
+    this.init()
+}
+
 });
 
 export default App
