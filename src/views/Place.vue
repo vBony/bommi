@@ -7,7 +7,7 @@
                         <div class="d-flex align-center">
                             <v-img class="rounded-circle me-5" width="100" height="100" aspect-ratio="1/1" cover
                                 src="https://picsum.photos/200/300"></v-img>
-                            <h1 class="text-h4 font-weight-bold">Barbearia do Seu Zé</h1>
+                            <h1 class="text-h4 font-weight-bold">{{ place.name }}</h1>
                         </div>
                     </v-col>
 
@@ -29,23 +29,25 @@
                                         </v-text-field>
                                     </v-col>
                                 </v-row>
-
-                                <v-row>
+                                
+                                <v-row 
+                                    v-for="(category, index) in place.categories" 
+                                    v-bind:key="index"
+                                >
                                     <v-col cols="12">
-                                        <h2 class="text-h5 font-weight-bold">Corte masculino</h2>
+                                        <h2 class="text-h5 font-weight-bold">{{ category.name }}</h2>
                                     </v-col>
 
-                                    <v-col cols="12" lg="4" md="6" sm="12">
+                                    <v-col cols="12" lg="4" md="6" sm="12" v-for="(service, indexService) in category.services" v-bind:key="indexService">
                                         <v-card class="pa-4" style="cursor: pointer !important;" color="grey-lighten-5"
-                                            elevation="1" @click="openServiceDialog()">
-                                            <p class="text-medium-emphasis font-weight-bold mb-2 text-truncate">Barba +
-                                                Corte com Tesoura Barba</p>
-                                            <p class="text-disabled text-body-2 card-desc-truncate">
-                                                Serviço completo com corte de cabelo feito na tesoura
-                                                e barba modelada. Ideal para quem busca um visual
-                                                moderno com acabamento profissional.
+                                            elevation="1" @click="openServiceDialog(service)">
+                                            <p class="text-medium-emphasis font-weight-bold mb-2 text-truncate">
+                                                {{ service.name }}
                                             </p>
-                                            <p class="font-weight-bold mt-2">R$ 99,99</p>
+                                            <p class="text-disabled text-body-2 card-desc-truncate">
+                                                {{ service.description }}
+                                            </p>
+                                            <p class="font-weight-bold mt-2">R$ {{ service.price }}</p>
                                         </v-card>
                                     </v-col>
                                 </v-row>
@@ -57,7 +59,7 @@
                                         <h2 class="text-h6 font-weight-bold">
                                             Categoria
                                         </h2>
-                                        <p>Salão de beleza</p>
+                                        <p>{{ place.categoryPlace.name }}</p>
                                     </v-col>
 
                                     <v-col cols="12">
@@ -71,15 +73,17 @@
                                         <div class="mt-4">
                                             <div class="d-flex align-center">
                                                 <v-icon size="x-large" class="me-2">mdi-store-marker</v-icon>
-                                                <p>Rua 238, S/N, Qd. 34, Lt. 16 Apto. 204 Residencial Délio, Setor Leste
-                                                    Universitário, Goiânia-GO, CEP: 74.603-180</p>
+
+                                                <p>
+                                                    {{ place.address.district }}, {{ place.address.number }}, {{ place.address.complement }}, {{ place.address.city }} - {{ place.address.uf }}, CEP: {{ place.address.cep }}
+                                                </p>
                                             </div>
                                         </div>
 
                                         <div class="mt-4">
                                             <div class="d-flex align-center">
                                                 <v-icon size="x-large" class="me-2">mdi-phone</v-icon>
-                                                <p>(62) 99611-4399</p>
+                                                <p>{{ place.phoneNumber }}</p>
                                             </div>
                                         </div>
                                     </v-col>
@@ -101,27 +105,32 @@
 
         <!-- DIALOGS -->
         <v-dialog v-model="serviceDialog" width="auto">
-            <v-card max-width="800">
+            <v-card max-width="800" min-width="800">
                 <v-card-text class="pa-6">
                     <v-row>
                         <v-col cols="12">
-                            <h6 class="text-h5">Barba + Corte com Tesoura Barba</h6>
+                            <h6 class="text-h5">{{ service.name }}</h6>
                         </v-col>
                     </v-row>
 
                     <v-row>
                         <v-col cols="12">
                             <p class="text-medium-emphasis">
-                                Serviço completo com corte de cabelo feito na tesoura
-                                e barba modelada. Ideal para quem busca um visual
-                                moderno com acabamento profissional.
+                                {{ service.description }}
                             </p>
                         </v-col>
                     </v-row>
 
                     <v-row>
                         <v-col cols="12">
-                            <p class="font-weight-bold mt-2">R$ 99,99</p>
+                            <p class="font-weight-bold mt-2">
+                                <v-icon class="me-1">mdi-clock-outline</v-icon>
+                                Duração:  {{ service.duration }}
+                            </p>
+                            <p class="font-weight-bold mt-2">
+                                <v-icon class="me-1">mdi-cash</v-icon>
+                                R$ {{ service.price }}
+                            </p>
                         </v-col>
                     </v-row>
 
@@ -165,6 +174,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    line-height: 1.5rem;
+    min-height: calc(1.5rem * 3); /* Garante altura de 3 linhas */
+}
+
+.card-desc-truncate:empty::before {
+    content: ' '; /* espaço em branco */
+    visibility: hidden;
 }
 </style>
 
@@ -186,12 +203,15 @@ data() {
         tab: "1",
 
         slugName: null,
-        place: {}
+        place: {},
+        service: {}
     };
 },
+
 methods: {
-    openServiceDialog() {
+    openServiceDialog(serviceSelected) {
         this.serviceDialog = true
+        this.service = serviceSelected
     },
 
     init(){
