@@ -97,6 +97,23 @@
                     </v-col>
                 </v-row>
             </v-sheet>
+
+            <v-slide-y-transition>
+                <div
+                    v-if="servicesOnCart.length > 0"
+                    class="pa-2"
+                    style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1000; width: 100%; max-width: 400px;"
+                >
+                    <v-card class="bg-primary rounded-lg pa-3 d-flex align-center justify-space-between" elevation="16">
+                        <div>
+                            Serviços selecionados: {{ servicesOnCart.length }}
+                        </div>
+                        <div class="ms-auto">
+                            <v-btn @click="openScheduleDialog()">Agendar</v-btn>
+                        </div>
+                    </v-card>
+                </div>
+            </v-slide-y-transition>
         </v-container>
 
 
@@ -109,7 +126,7 @@
                 <v-card-text class="pa-6">
                     <v-row>
                         <v-col cols="12">
-                            <h6 class="text-h5">{{ service.name }}</h6>
+                            <h6 class="text-h5 font-weight-bold">{{ service.name }}</h6>
                         </v-col>
                     </v-row>
 
@@ -138,11 +155,13 @@
                         <v-col cols="12">
                             <label class="text-subtitle-1">Alguma observação?</label>
                             <v-textarea 
+                                v-model="service.note"
                                 label="Adicione alguma informação que considere importante." 
                                 variant="outlined"
                                 hide-details="auto"
                                 density="compact"
                                 single-line
+                                :disabled="blockBtnAddServiceDialog"
                             ></v-textarea>
                         </v-col>
                     </v-row>
@@ -152,18 +171,118 @@
                     <v-spacer></v-spacer>
 
                     <v-btn 
+                        v-if="blockBtnAddServiceDialog == false"
                         class="ms-auto px-4" 
-                        @click="serviceDialog = false" 
+                        @click="addServiceToCart()" 
                         color="primary"
                         variant="tonal"
                     >
                         Adicionar
 
-                        <b class="ms-4">R$99,99</b>
+                        <b class="ms-4">R${{ service.price }}</b>
+                    </v-btn>
+
+                    <v-btn 
+                        v-else
+                        class="ms-auto px-4" 
+                        color="primary"
+                        variant="tonal"
+                        disabled
+                        prepend-icon="mdi-check-bold"
+                    >
+                        Adicionado
                     </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="toScheduleDialog" width="auto">
+            <v-card max-width="800" min-width="800" class="pa-4">
+                <v-card-title>
+                    <v-row>
+                        <v-col cols="12">
+                            <h5 class="text-h5 font-weight-bold">Realizar agendamento</h5>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+                    <v-window v-model="stepSchedule">
+                        <v-window-item :value="1">
+                            <v-row>
+                                <v-col cols="12">
+                                    <p class="font-weight-bold">Revise os serviços selecionados</p>
+                                </v-col>
+                            </v-row>
+                            <v-divider class="mb-4 border-opacity-100"></v-divider>
+
+                            <div style="max-height: 300px !important; overflow-y: auto; overflow-x: hidden;"> 
+                                <v-row 
+                                    v-for="(service, index) in servicesOnCart" 
+                                    v-bind:key="index"
+                                >
+                                    <v-col cols="10" class="d-flex flex-column justify-center">
+                                        <p class="font-weight-bold"> {{ service.name }}</p>
+                                        <p class="text-caption text-medium-emphasis mb-0">
+                                            R$ {{ service.price }}
+                                        </p>
+                                        <p class="text-caption text-medium-emphasis mb-0 d-flex align-center">
+                                            <v-icon size="18" class="me-1">mdi-clock-outline</v-icon>
+                                            {{ service.duration }}
+                                        </p>
+                                    </v-col>
+    
+                                    <v-col cols="2" class="d-flex justify-end align-center">
+                                        <v-btn 
+                                            elevation="0" 
+                                            icon="mdi-delete" 
+                                            size="small"
+                                            @click="deleteServiceFromCart(service.id)"
+                                        ></v-btn>
+                                    </v-col>
+    
+                                    <v-divider class="dashed-divider border-opacity-75"></v-divider>
+                                </v-row>
+                            </div>
+                            
+                            <v-row class="mt-4">
+                                <v-col cols="6" class="d-flex flex-column">
+                                    <span class="text-caption text-medium-emphasis">Total</span>
+                                    <span class="text-subtitle-2 font-weight-bold">R$ {{ totalPrice }}</span>
+                                </v-col>
+
+                                <v-col cols="6" class="d-flex flex-column align-end">
+                                    <span class="text-caption text-medium-emphasis">Duração total</span>
+                                    <span class="text-subtitle-2 font-weight-bold">{{ totalDuration }}</span>
+                                </v-col>
+                            </v-row>
+                        </v-window-item>
+
+                        <v-window-item :value="2">
+                            <v-row>
+                                <v-col cols="12">
+                                    <p class="font-weight-bold">Informe seus dados pessoais</p>
+                                </v-col>
+                            </v-row>
+                        </v-window-item>
+
+                        <v-window-item :value="3">
+                            <v-row>
+                                <v-col cols="12">
+                                    <p class="font-weight-bold">Escolha o melhor dia</p>
+                                </v-col>
+                            </v-row>
+                        </v-window-item>
+                    </v-window>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-btn @click="stepSchedule--" color="secondary" variant="tonal">Anterior</v-btn>
+                    <v-spacer />
+                    <v-btn @click="stepSchedule++" color="black" variant="flat">Próximo</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </v-app>
 </template>
 
@@ -183,6 +302,10 @@
     content: ' '; /* espaço em branco */
     visibility: hidden;
 }
+
+.dashed-divider {
+    border-top: 1px dashed rgba(0, 0, 0, 0.5); /* pode ajustar a cor conforme tema */
+}
 </style>
 
   
@@ -200,29 +323,84 @@ components: {
 data() {
     return {
         serviceDialog: false,
+        blockBtnAddServiceDialog: false,
         tab: "1",
+        
+        toScheduleDialog: false,
+        stepSchedule: 1,
 
         slugName: null,
         place: {},
-        service: {}
+        service: {},
+        servicesOnCart: []
     };
 },
 
 methods: {
     openServiceDialog(serviceSelected) {
+        let serviceExist = this.servicesOnCart.find(service => service.id === serviceSelected.id);
+
+        
+        
         this.serviceDialog = true
+
+        if(serviceExist){
+            this.blockBtnAddServiceDialog = true
+        }else{
+            this.blockBtnAddServiceDialog = false
+        }
+
         this.service = serviceSelected
     },
 
+    openScheduleDialog(){
+        this.toScheduleDialog = true
+    },
+
     init(){
-        req.get(`api/place/slug/${this.slugName}`)
+        req.get(`api/place/data-by-slug/${this.slugName}`)
         .then((res) => {
             this.place = res.data
 
             console.log(this.place)
         })
         .catch((err) => {})
+    },
 
+    addServiceToCart(){
+        this.serviceDialog = false
+
+        this.servicesOnCart.push(this.service)
+        this.service = {}
+    },
+
+    deleteServiceFromCart(idService){
+        this.servicesOnCart = this.servicesOnCart.filter(s => s.id !== idService)
+
+        if(this.servicesOnCart.length <= 0){
+            this.toScheduleDialog = false
+        }
+    }
+},
+
+computed: {
+    totalPrice() {
+        return this.servicesOnCart.reduce((total, s) => {
+            const price = parseFloat(s.price);
+            return isNaN(price) ? total : total + price;
+        }, 0).toFixed(2);
+    },
+    totalDuration() {
+        const totalMinutes = this.servicesOnCart
+        .reduce((totalMinutes, s) => {
+            const [hours, minutes] = s.duration.split(':').map(Number); // Separa as horas e minutos e converte para número
+            return totalMinutes + (hours * 60) + minutes; // Converte tudo para minutos
+        }, 0);
+
+        const hours = Math.floor(totalMinutes / 60); // Converte os minutos totais para horas
+        const minutes = totalMinutes % 60; // Pega o restante dos minutos
+
+        return `${hours}h ${minutes}min`; // Retorna no formato desejado
     }
 },
 
