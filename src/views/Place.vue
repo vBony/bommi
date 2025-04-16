@@ -155,13 +155,15 @@
                         <v-col cols="12">
                             <label class="text-subtitle-1">Alguma observação?</label>
                             <v-textarea 
-                                v-model="service.note"
+                                v-model="service.observation"
                                 label="Adicione alguma informação que considere importante." 
                                 variant="outlined"
                                 hide-details="auto"
                                 density="compact"
                                 single-line
                                 :disabled="blockBtnAddServiceDialog"
+                                :counter="250"
+                                :maxlength="250"
                             ></v-textarea>
                         </v-col>
                     </v-row>
@@ -206,7 +208,7 @@
                     </v-row>
                 </v-card-title>
                 <v-card-text>
-                    <v-window v-model="stepSchedule">
+                    <v-window v-model="stepSchedule" :touch="{ left: null, right: null }">
                         <v-window-item :value="1">
                             <v-row>
                                 <v-col cols="12">
@@ -215,7 +217,7 @@
                             </v-row>
                             <v-divider class="mb-4 border-opacity-100"></v-divider>
 
-                            <div style="max-height: 300px !important; overflow-y: auto; overflow-x: hidden;"> 
+                            <div style="height: 300px !important; overflow-y: auto; overflow-x: hidden;"> 
                                 <v-row 
                                     v-for="(service, index) in servicesOnCart" 
                                     v-bind:key="index"
@@ -261,16 +263,96 @@
                             <v-row>
                                 <v-col cols="12">
                                     <p class="font-weight-bold">Informe seus dados pessoais</p>
+                                    <p class="text-body-2 text-grey-darken-1">
+                                        Solicitamos essas informações para que possamos entrar em contato 
+                                        com você caso ocorra qualquer imprevisto relacionado ao seu agendamento.
+                                    </p>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="mb-4">
+                                <v-col cols="12" md="6" lg="6" xl="6" xxl="6" sm="12">
+                                    <label>Seu telefone</label>
+                                    <v-text-field 
+                                        v-model="schedule.phoneNumber"
+                                        label="(99) 99999-9999" 
+                                        variant="outlined" 
+                                        type="text"
+                                        hide-details="auto" 
+                                        single-line 
+                                        prepend-inner-icon="mdi-phone"
+                                        :error-messages="errorsSchedule.phoneNumber"
+                                        v-maska:[mt.phone]  
+                                    >
+                                    </v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" md="6" lg="6" xl="6" xxl="6" sm="12">
+                                    <label>Nome completo</label>
+                                    <v-text-field 
+                                        v-model="schedule.name"
+                                        variant="outlined" 
+                                        type="text"
+                                        hide-details="auto" 
+                                        single-line 
+                                        prepend-inner-icon="mdi-account"
+                                        :error-messages="errorsSchedule.name"
+                                    >
+                                    </v-text-field>
                                 </v-col>
                             </v-row>
                         </v-window-item>
 
                         <v-window-item :value="3">
-                            <v-row>
-                                <v-col cols="12">
-                                    <p class="font-weight-bold">Escolha o melhor dia</p>
-                                </v-col>
-                            </v-row>
+                            <div class="pa-4">
+                                <!-- Navegação -->
+                                <div class="d-flex align-center justify-space-between mb-4">
+                                    <span class="font-weight-medium">Escolha a melhor data para você</span>
+                                </div>
+
+                                <!-- Datas -->
+                                <v-slide-group
+                                    v-model="selectedDateIndex"
+                                    show-arrows
+                                    class="mb-6"
+                                    center-active
+                                >
+                                    <v-slide-group-item
+                                        v-for="(date, index) in visibleDates"
+                                        :key="index"
+                                    >
+                                        <v-btn
+                                            class="ma-1"
+                                            :variant="index === selectedDateIndex ? 'flat' : 'outlined'"
+                                            color="black"
+                                            @click="selectedDateIndex = index"
+                                        >
+                                            <div class="text-caption">{{ daysOfWeek[date.getDay()] }}: </div>
+                                            <div class="text-subtitle-2 font-weight-bold">
+                                                {{ formatDate(date) }}
+                                            </div>
+                                        </v-btn>
+                                    </v-slide-group-item>
+                                </v-slide-group>
+
+                                <v-divider class="mb-4 border-opacity-100 mt-12"></v-divider>
+                                <p class="font-weight-bold">Agora selecione o melhor horário</p>
+                                <div class="mb-4">
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <v-btn
+                                            v-for="(hour, i) in hours"
+                                            :key="i"
+                                            variant="outlined"
+                                            color="black"
+                                            :class="{ 'selected-time': selectedTime === hour }"
+                                            class="time-btn me-2"
+                                            @click="selectTime(hour)"
+                                        >
+                                            {{ hour }}
+                                        </v-btn>
+                                    </div>
+                                </div>
+                            </div>
                         </v-window-item>
                     </v-window>
                 </v-card-text>
@@ -278,7 +360,7 @@
                 <v-card-actions>
                     <v-btn @click="stepSchedule--" color="secondary" variant="tonal">Anterior</v-btn>
                     <v-spacer />
-                    <v-btn @click="stepSchedule++" color="black" variant="flat">Próximo</v-btn>
+                    <v-btn @click="nextStepSchedule()" color="black" variant="flat">Próximo</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -306,6 +388,15 @@
 .dashed-divider {
     border-top: 1px dashed rgba(0, 0, 0, 0.5); /* pode ajustar a cor conforme tema */
 }
+
+.time-btn {
+    min-width: 80px;
+}
+
+.selected-time {
+    background-color: #ff9800 !important;
+    color: white !important;
+}
 </style>
 
   
@@ -314,25 +405,53 @@
 import { defineComponent } from 'vue';
 import HelloWorld from '@/components/HelloWorld.vue'
 import req from '@/helpers/http'
+import Masks from '@/helpers/maskTokens'
+import { vMaska, Mask } from "maska"
 
 const App = defineComponent({
 components: {
     HelloWorld
 },
 
+directives: { maska: vMaska },
+
 data() {
+    const today = new Date()
+
+    const allDates = Array.from({ length: 21 }, (_, i) => {
+        const date = new Date()
+        date.setDate(today.getDate() + i)
+        return date
+    })
+
     return {
+        mt: new Masks(),
+
         serviceDialog: false,
         blockBtnAddServiceDialog: false,
         tab: "1",
         
         toScheduleDialog: false,
         stepSchedule: 1,
+        schedule: {
+            idPlace: null,
+            name: null,
+            phoneNumber: null,
+            services: {}
+        },
+        errorsSchedule: {},
 
         slugName: null,
         place: {},
         service: {},
-        servicesOnCart: []
+        servicesOnCart: [],
+
+        allDates,
+        selectedDateIndex: 1,
+        startIndex: 0,
+        selectedTime: null,
+        hours: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+        daysOfWeek: ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB']
     };
 },
 
@@ -361,8 +480,6 @@ methods: {
         req.get(`api/place/data-by-slug/${this.slugName}`)
         .then((res) => {
             this.place = res.data
-
-            console.log(this.place)
         })
         .catch((err) => {})
     },
@@ -380,6 +497,59 @@ methods: {
         if(this.servicesOnCart.length <= 0){
             this.toScheduleDialog = false
         }
+    },
+
+    nextStepSchedule(){
+        this.errorsSchedule = {}
+        if(this.stepSchedule == 2){
+            const schedule = this.mountDataSchedule()
+            req.post('api/place/appointments/availability', schedule)
+            .then((response) => {
+                this.stepSchedule++
+            })
+            .catch((reason) => {
+                this.errorsSchedule = reason.response.data.errors
+            })
+        }else{
+            this.stepSchedule++
+        }
+    },
+
+    mountDataSchedule(){
+        let phoneMask = new Mask(this.mt.phone)
+
+        this.schedule.services = this.servicesOnCart.map(item => ({
+            id: item.id,
+            observation: item.observation
+        }));
+
+        this.schedule.idPlace = this.place.id
+        this.schedule.phoneNumber = structuredClone(phoneMask.unmasked(this.schedule.phoneNumber))
+
+        return this.schedule
+    },
+
+    prevDates() {
+        if (this.startIndex >= 7) {
+            this.startIndex -= 7
+        }
+    },
+
+    nextDates() {
+        if (this.startIndex + 14 < this.allDates.length) {
+            this.startIndex += 7
+        }
+    },
+
+    formatDate(date: Date) {
+        return date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit'
+        })
+    },
+    selectTime(hour: string) {
+        this.selectedTime = hour
+        const selectedDate = this.visibleDates[this.selectedDateIndex]
     }
 },
 
@@ -390,6 +560,7 @@ computed: {
             return isNaN(price) ? total : total + price;
         }, 0).toFixed(2);
     },
+
     totalDuration() {
         const totalMinutes = this.servicesOnCart
         .reduce((totalMinutes, s) => {
@@ -401,6 +572,10 @@ computed: {
         const minutes = totalMinutes % 60; // Pega o restante dos minutos
 
         return `${hours}h ${minutes}min`; // Retorna no formato desejado
+    },
+
+    visibleDates() {
+        return this.allDates.slice(this.startIndex, this.startIndex + 14)
     }
 },
 
