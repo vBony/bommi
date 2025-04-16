@@ -485,6 +485,7 @@ methods: {
     },
 
     addServiceToCart(){
+        this.stepSchedule = 1
         this.serviceDialog = false
 
         this.servicesOnCart.push(this.service)
@@ -524,7 +525,9 @@ methods: {
         }));
 
         this.schedule.idPlace = this.place.id
-        this.schedule.phoneNumber = structuredClone(phoneMask.unmasked(this.schedule.phoneNumber))
+        if(this.schedule.phoneNumber){
+            this.schedule.phoneNumber = structuredClone(phoneMask.unmasked(this.schedule.phoneNumber))
+        }
 
         return this.schedule
     },
