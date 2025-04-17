@@ -316,20 +316,24 @@
                                     show-arrows
                                     class="mb-6"
                                     center-active
+                                    :touch="{ left: true, right: true }"
                                 >
                                     <v-slide-group-item
-                                        v-for="(date, index) in visibleDates"
+                                        v-for="(date, index) in place.avaliableDates"
                                         :key="index"
                                     >
                                         <v-btn
                                             class="ma-1"
-                                            :variant="index === selectedDateIndex ? 'flat' : 'outlined'"
                                             color="black"
-                                            @click="selectedDateIndex = index"
+                                            size="x-large"
+                                            :variant="schedule.date === date ? 'flat' : 'outlined'"
+                                            @click="schedule.date = date"
                                         >
-                                            <div class="text-caption">{{ daysOfWeek[date.getDay()] }}: </div>
-                                            <div class="text-subtitle-2 font-weight-bold">
-                                                {{ formatDate(date) }}
+                                            <div class="d-flex flex-column">
+                                                <div class="text-caption">{{ getDayOfWeek(date) }} </div>
+                                                <div class="text-subtitle-2 font-weight-bold">
+                                                    {{ getDateBr(date) }}
+                                                </div>
                                             </div>
                                         </v-btn>
                                     </v-slide-group-item>
@@ -416,14 +420,6 @@ components: {
 directives: { maska: vMaska },
 
 data() {
-    const today = new Date()
-
-    const allDates = Array.from({ length: 21 }, (_, i) => {
-        const date = new Date()
-        date.setDate(today.getDate() + i)
-        return date
-    })
-
     return {
         mt: new Masks(),
 
@@ -437,6 +433,7 @@ data() {
             idPlace: null,
             name: null,
             phoneNumber: null,
+            date: null,
             services: {}
         },
         errorsSchedule: {},
@@ -446,12 +443,8 @@ data() {
         service: {},
         servicesOnCart: [],
 
-        allDates,
-        selectedDateIndex: 1,
-        startIndex: 0,
-        selectedTime: null,
         hours: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-        daysOfWeek: ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB']
+        daysOfWeek: ['SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO']
     };
 },
 
@@ -532,27 +525,14 @@ methods: {
         return this.schedule
     },
 
-    prevDates() {
-        if (this.startIndex >= 7) {
-            this.startIndex -= 7
-        }
+    getDayOfWeek(date){
+        const dayIndex = new Date(date).getDay()
+        return this.daysOfWeek[dayIndex]
     },
 
-    nextDates() {
-        if (this.startIndex + 14 < this.allDates.length) {
-            this.startIndex += 7
-        }
-    },
-
-    formatDate(date: Date) {
-        return date.toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit'
-        })
-    },
-    selectTime(hour: string) {
-        this.selectedTime = hour
-        const selectedDate = this.visibleDates[this.selectedDateIndex]
+    getDateBr(date){
+        date = new Date(date).toLocaleDateString('pt-BR')
+        return date
     }
 },
 
@@ -575,10 +555,6 @@ computed: {
         const minutes = totalMinutes % 60; // Pega o restante dos minutos
 
         return `${hours}h ${minutes}min`; // Retorna no formato desejado
-    },
-
-    visibleDates() {
-        return this.allDates.slice(this.startIndex, this.startIndex + 14)
     }
 },
 
