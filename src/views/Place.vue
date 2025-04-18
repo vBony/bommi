@@ -517,6 +517,7 @@ methods: {
                 this.errorsSchedule = errors
                 return
             }else{
+                this.resetDateSchedule()
                 this.stepSchedule++
             }
         } else {
@@ -565,6 +566,12 @@ methods: {
         .catch((reason) => {
             this.errorsSchedule = reason.response.data.errors
         })
+    },
+
+    resetDateSchedule(){
+        this.schedule.date = null
+        this.selectedDateIndex = null
+        this.hours = null
     }
 },
 
