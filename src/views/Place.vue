@@ -339,16 +339,17 @@
                                     </v-slide-group-item>
                                 </v-slide-group>
 
-                                <v-divider class="mb-4 border-opacity-100 mt-12"></v-divider>
+                                <v-divider class="mb-4 border-opacity-100 mt-12" v-if="this.hours"></v-divider>
                                 <p class="font-weight-bold" v-if="this.hours">Agora selecione o melhor horário</p>
                                 <div class="mb-4" v-if="this.hours">
                                     <div class="d-flex flex-wrap gap-2">
                                         <v-btn
                                             v-for="(hour, i) in hours"
                                             :key="i"
-                                            variant="outlined"
+                                            :variant="schedule.hour === hour ? 'flat' : 'outlined'"
                                             color="black"
                                             class="time-btn me-2 mb-2"
+                                            @click="schedule.hour = hour"
                                         >
                                             {{ hour }}
                                         </v-btn>
@@ -433,6 +434,7 @@ data() {
             name: null,
             phoneNumber: null,
             date: null,
+            hour: null,
             services: {}
         },
         errorsSchedule: {},
@@ -520,6 +522,14 @@ methods: {
                 this.resetDateSchedule()
                 this.stepSchedule++
             }
+        } else if (this.stepSchedule === 2) {
+            req.post('api/place/appointments/book', schedule)
+            .then((response) => {
+                
+            })
+            .catch((reason) => {
+                this.errorsSchedule = reason.response.data.errors
+            })
         } else {
             this.stepSchedule++
         }
@@ -570,6 +580,8 @@ methods: {
 
     resetDateSchedule(){
         this.schedule.date = null
+        this.schedule.hour = null
+
         this.selectedDateIndex = null
         this.hours = null
     }
