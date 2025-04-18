@@ -282,7 +282,7 @@
                                         single-line 
                                         prepend-inner-icon="mdi-phone"
                                         :error-messages="errorsSchedule.phoneNumber"
-                                        v-maska:[mt.phone]  
+                                        v-maska:[mt.phone]
                                     >
                                     </v-text-field>
                                 </v-col>
@@ -327,7 +327,7 @@
                                             color="black"
                                             size="x-large"
                                             :variant="schedule.date === date ? 'flat' : 'outlined'"
-                                            @click="schedule.date = date"
+                                            @click="selectedDateSchedule(date, index)"
                                         >
                                             <div class="d-flex flex-column">
                                                 <div class="text-caption">{{ getDayOfWeek(date) }} </div>
@@ -340,17 +340,15 @@
                                 </v-slide-group>
 
                                 <v-divider class="mb-4 border-opacity-100 mt-12"></v-divider>
-                                <p class="font-weight-bold">Agora selecione o melhor horário</p>
-                                <div class="mb-4">
+                                <p class="font-weight-bold" v-if="this.hours">Agora selecione o melhor horário</p>
+                                <div class="mb-4" v-if="this.hours">
                                     <div class="d-flex flex-wrap gap-2">
                                         <v-btn
                                             v-for="(hour, i) in hours"
                                             :key="i"
                                             variant="outlined"
                                             color="black"
-                                            :class="{ 'selected-time': selectedTime === hour }"
-                                            class="time-btn me-2"
-                                            @click="selectTime(hour)"
+                                            class="time-btn me-2 mb-2"
                                         >
                                             {{ hour }}
                                         </v-btn>
@@ -429,6 +427,7 @@ data() {
         
         toScheduleDialog: false,
         stepSchedule: 1,
+        selectedDateIndex: null,
         schedule: {
             idPlace: null,
             name: null,
@@ -443,7 +442,7 @@ data() {
         service: {},
         servicesOnCart: [],
 
-        hours: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+        hours: null,
         daysOfWeek: ['SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO']
     };
 },
@@ -493,21 +492,38 @@ methods: {
         }
     },
 
-    nextStepSchedule(){
+    nextStepSchedule() {
         this.errorsSchedule = {}
-        if(this.stepSchedule == 2){
-            const schedule = this.mountDataSchedule()
-            req.post('api/place/appointments/availability', schedule)
-            .then((response) => {
+
+        if (this.stepSchedule === 2) {
+            // Validação manual dos campos obrigatórios
+            const errors = {}
+
+            if (!this.schedule.name || this.schedule.name.length < 3 || this.schedule.name.length > 100) {
+                errors.name = ['O nome é obrigatório e deve ter entre 3 e 100 caracteres.']
+            }else{
+                delete(errors.name)
+            }
+
+            let phoneNumber = structuredClone(this.schedule.phoneNumber.replace(/\D/g, ''))
+            if (!phoneNumber || !/^\d{11}$/.test(phoneNumber.replace(/\D/g, ''))) {
+                errors.phoneNumber = ['Informe um telefone válido 11 dígitos.']
+            }else{
+                delete(errors.phoneNumber)
+            }
+
+            // Se tiver erros, bloqueia a continuidade
+            if (Object.keys(errors).length > 0) {
+                this.errorsSchedule = errors
+                return
+            }else{
                 this.stepSchedule++
-            })
-            .catch((reason) => {
-                this.errorsSchedule = reason.response.data.errors
-            })
-        }else{
+            }
+        } else {
             this.stepSchedule++
         }
     },
+
 
     mountDataSchedule(){
         let phoneMask = new Mask(this.mt.phone)
@@ -533,6 +549,22 @@ methods: {
     getDateBr(date){
         date = new Date(date).toLocaleDateString('pt-BR')
         return date
+    },
+
+    selectedDateSchedule(date, index){
+        this.schedule.date = date
+        this.selectedDateIndex = index
+
+        // Dados válidos: faz requisição
+        const schedule = this.mountDataSchedule()
+
+        req.post('api/place/appointments/availability', schedule)
+        .then((response) => {
+            this.hours = response.data.times
+        })
+        .catch((reason) => {
+            this.errorsSchedule = reason.response.data.errors
+        })
     }
 },
 
