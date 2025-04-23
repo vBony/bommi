@@ -198,7 +198,7 @@
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="toScheduleDialog" width="auto">
+        <v-dialog v-model="toScheduleDialog" width="auto" :persistent="loadingSchedule">
             <v-card max-width="800" min-width="800" class="pa-4">
                 <v-card-title>
                     <v-row>
@@ -281,7 +281,7 @@
                                         hide-details="auto" 
                                         single-line 
                                         prepend-inner-icon="mdi-phone"
-                                        :error-messages="errorsSchedule.phoneNumber"
+                                        :error-messages="errorsSchedule?.phoneNumber"
                                         v-maska:[mt.phone]
                                     >
                                     </v-text-field>
@@ -296,7 +296,7 @@
                                         hide-details="auto" 
                                         single-line 
                                         prepend-inner-icon="mdi-account"
-                                        :error-messages="errorsSchedule.name"
+                                        :error-messages="errorsSchedule?.name"
                                     >
                                     </v-text-field>
                                 </v-col>
@@ -328,6 +328,7 @@
                                             size="x-large"
                                             :variant="schedule.date === date ? 'flat' : 'outlined'"
                                             @click="selectedDateSchedule(date, index)"
+                                            :disabled="loadingSchedule"
                                         >
                                             <div class="d-flex flex-column">
                                                 <div class="text-caption">{{ getDayOfWeek(date) }} </div>
@@ -339,10 +340,10 @@
                                     </v-slide-group-item>
                                 </v-slide-group>
 
-                                <v-divider class="mb-4 border-opacity-100 mt-12" v-if="this.hours"></v-divider>
-                                <p class="font-weight-bold" v-if="this.hours">Agora selecione o melhor horário</p>
-                                <div class="mb-4" v-if="this.hours">
-                                    <div class="d-flex flex-wrap gap-2">
+                                <v-divider class="mb-4 border-opacity-100 mt-12" v-if="schedule.date"></v-divider>
+                                <p class="font-weight-bold" v-if="schedule.date">Agora selecione o melhor horário</p>
+                                <div class="mb-4" v-if="schedule.date">
+                                    <div class="d-flex flex-wrap gap-2" v-if="!loadingSchedule && this.hours">
                                         <v-btn
                                             v-for="(hour, i) in hours"
                                             :key="i"
@@ -354,6 +355,14 @@
                                             {{ hour }}
                                         </v-btn>
                                     </div>
+
+                                    <div class="d-flex flex-wrap gap-2" v-if="loadingSchedule">
+                                        <div class="skeleton-chip me-2 mb-2" v-for="i in 14" :key="i"></div>
+                                    </div>
+
+                                    <div class="mt-2" v-if="!loadingSchedule && !this.hours">
+                                        <v-alert icon="mdi-emoticon-sad-outline" text="Nenhum horário disponível" variant="tonal"></v-alert>
+                                    </div>
                                 </div>
                             </div>
                         </v-window-item>
@@ -361,10 +370,36 @@
                 </v-card-text>
 
                 <v-card-actions>
-                    <v-btn @click="stepSchedule--" color="secondary" variant="tonal">Anterior</v-btn>
+                    <v-btn @click="stepSchedule--" color="secondary" variant="tonal" :loading="loadingSchedule">Anterior</v-btn>
+
                     <v-spacer />
-                    <v-btn @click="nextStepSchedule()" color="black" variant="flat">Próximo</v-btn>
+
+                    <v-btn @click="nextStepSchedule()" color="black" variant="flat" :loading="loadingSchedule">Próximo</v-btn>
                 </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="showSuccessDialog" width="460" transition="fade-transition" persistent>
+            <v-card class="rounded-2xl bg-white text-black border border-gray-200 shadow-lg pa-6">
+                <div class="d-flex align-center mb-4">
+                    <v-icon color="black" size="28">mdi-check-circle-outline</v-icon>
+                    <span class="text-h6 font-weight-medium ml-3">Agendamento Confirmado</span>
+                </div>
+
+                <div class="text-body-3 text-gray-800 mb-4">
+                    <p>Seu agendamento foi realizado com sucesso.</p><br>
+                    <p>Entraremos em contato para confirmar sua presença <strong>45 minutos</strong> antes do horário agendado.</p>
+                </div>
+
+                <div class="d-flex justify-end">
+                    <v-btn
+                        color="black"
+                        class="text-none rounded-lg"
+                        @click="showSuccessDialog = false"
+                    >
+                        Fechar
+                    </v-btn>
+                </div>
             </v-card>
         </v-dialog>
 
@@ -400,6 +435,26 @@
     background-color: #ff9800 !important;
     color: white !important;
 }
+
+.skeleton-chip {
+    width: 80px;
+    height: 32px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
 </style>
 
   
@@ -410,6 +465,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import req from '@/helpers/http'
 import Masks from '@/helpers/maskTokens'
 import { vMaska, Mask } from "maska"
+import { scheduleDTO } from '@/models/schedule';
 
 const App = defineComponent({
 components: {
@@ -429,23 +485,21 @@ data() {
         toScheduleDialog: false,
         stepSchedule: 1,
         selectedDateIndex: null,
-        schedule: {
-            idPlace: null,
-            name: null,
-            phoneNumber: null,
-            date: null,
-            hour: null,
-            services: {}
-        },
-        errorsSchedule: {},
+        schedule: { ...scheduleDTO },
+        errorsSchedule: { ...scheduleDTO },
+        hours: null,
+        daysOfWeek: ['SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO'],
+        loadingSchedule: false,
+
+
 
         slugName: null,
         place: {},
         service: {},
         servicesOnCart: [],
 
-        hours: null,
-        daysOfWeek: ['SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO']
+
+        showSuccessDialog: false
     };
 },
 
@@ -498,41 +552,39 @@ methods: {
         this.errorsSchedule = {}
 
         if (this.stepSchedule === 2) {
-            // Validação manual dos campos obrigatórios
-            const errors = {}
-
-            if (!this.schedule.name || this.schedule.name.length < 3 || this.schedule.name.length > 100) {
-                errors.name = ['O nome é obrigatório e deve ter entre 3 e 100 caracteres.']
-            }else{
-                delete(errors.name)
-            }
-
-            let phoneNumber = structuredClone(this.schedule.phoneNumber.replace(/\D/g, ''))
-            if (!phoneNumber || !/^\d{11}$/.test(phoneNumber.replace(/\D/g, ''))) {
-                errors.phoneNumber = ['Informe um telefone válido 11 dígitos.']
-            }else{
-                delete(errors.phoneNumber)
-            }
-
-            // Se tiver erros, bloqueia a continuidade
-            if (Object.keys(errors).length > 0) {
-                this.errorsSchedule = errors
-                return
-            }else{
-                this.resetDateSchedule()
-                this.stepSchedule++
-            }
-        } else if (this.stepSchedule === 2) {
-            req.post('api/place/appointments/book', schedule)
-            .then((response) => {
-                
-            })
-            .catch((reason) => {
-                this.errorsSchedule = reason.response.data.errors
-            })
+            console.log(this.schedule)
+            this.validateUserDataSchedule()
+        } else if (this.stepSchedule === 3) {
+            this.bookAppointment()
         } else {
             this.stepSchedule++
         }
+    },
+
+    bookAppointment(){
+        let phoneMask = new Mask(this.mt.phone)
+        if(this.schedule.phoneNumber){
+            this.schedule.phoneNumber = structuredClone(phoneMask.unmasked(this.schedule.phoneNumber))
+        }
+
+        if(!this.schedule.date || !this.schedule.hour){
+            return
+        }
+
+        this.loadingSchedule = true
+
+        req.post('api/place/appointments/book', this.schedule)
+        .then((response) => {
+            this.resetSchedule()
+            this.toScheduleDialog = false
+            this.showSuccessDialog = true
+        })
+        .catch((reason) => {
+            this.errorsSchedule = reason.response.data.errors
+        })
+        .finally(() => {
+          this.loadingSchedule = false;
+        });
     },
 
 
@@ -552,6 +604,38 @@ methods: {
         return this.schedule
     },
 
+    validateUserDataSchedule(){
+        // Validação manual dos campos obrigatórios
+        const errors = {}
+
+        if (!this.schedule.name || this.schedule.name.length < 3 || this.schedule.name.length > 100) {
+            errors.name = ['O nome é obrigatório e deve ter entre 3 e 100 caracteres.']
+        }else{
+            delete(errors.name)
+        }
+
+        let phoneNumber = structuredClone(this.schedule.phoneNumber)
+        if(!phoneNumber){
+            errors.phoneNumber = ['Telefone é obrigatório.']
+        }else{
+            phoneNumber = phoneNumber.replace(/\D/g, '')
+            if (!phoneNumber || !/^\d{11}$/.test(phoneNumber.replace(/\D/g, ''))) {
+                errors.phoneNumber = ['Informe um telefone válido 11 dígitos.']
+            }else{
+                delete(errors.phoneNumber)
+            }
+        }
+
+        // Se tiver erros, bloqueia a continuidade
+        if (Object.keys(errors).length > 0) {
+            this.errorsSchedule = errors
+            return
+        }else{
+            this.resetDateSchedule()
+            this.stepSchedule++
+        }
+    },
+    
     getDayOfWeek(date){
         const dayIndex = new Date(date).getDay()
         return this.daysOfWeek[dayIndex]
@@ -563,6 +647,11 @@ methods: {
     },
 
     selectedDateSchedule(date, index){
+        this.hours = null
+        this.schedule.hour = null
+        
+        this.loadingSchedule = true
+
         this.schedule.date = date
         this.selectedDateIndex = index
 
@@ -575,7 +664,11 @@ methods: {
         })
         .catch((reason) => {
             this.errorsSchedule = reason.response.data.errors
+            this.hours = null
         })
+        .finally(() => {
+            this.loadingSchedule = false;
+        });
     },
 
     resetDateSchedule(){
@@ -584,6 +677,17 @@ methods: {
 
         this.selectedDateIndex = null
         this.hours = null
+    },
+
+    resetSchedule(){
+        this.resetDateSchedule()
+        this.schedule = { ...scheduleDTO }
+        this.errorsSchedule = {}
+        this.stepSchedule = 1
+
+
+        this.service = {}
+        this.servicesOnCart = []
     }
 },
 
